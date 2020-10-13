@@ -1,0 +1,30 @@
+.message-box h2 {
+    font-size: 34px;
+    font-weight: 700;
+    padding: 0 0 10px;
+    margin: 0;
+    line-height: 62px;
+    margin-top: 0;
+    text-transform: none;
+}
+
+.message-box p {
+    margin-bottom: 20px;
+}
+
+.sim-btn:focus {
+    background: #664a3fcc;
+    outline: none;
+}
+
+hr {
+    border-top: 2px solid rgba(0,0,0,.1);
+}
+
+header {
+    margin-bottom: 35px;
+}
+
+header .sim-btn {
+    margin-bottom: 20px;
+}

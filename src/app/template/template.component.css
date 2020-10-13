@@ -1,0 +1,28 @@
+.dmtop.show {
+  bottom: 15px;
+}
+
+.dmtop {
+  background-color: #3c3d41;
+  z-index: 100;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  position: fixed;
+  bottom: -100px;
+  border-radius: 3px;
+  right: 15px;
+  text-align: center;
+  font-size: 20px;
+  color: #ffffff !important;
+  cursor: pointer;
+  -webkit-transition: all 0.7s ease-in-out;
+  -moz-transition: all 0.7s ease-in-out;
+  -o-transition: all 0.7s ease-in-out;
+  -ms-transition: all 0.7s ease-in-out;
+  transition: all 0.7s ease-in-out;
+}
+
+.dmtop:hover {
+  background: #8dbd56;
+}

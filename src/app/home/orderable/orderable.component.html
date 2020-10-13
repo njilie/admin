@@ -1,0 +1,27 @@
+<div id="menu" class="section wb">
+    <div class="container-fluid">
+        <div class="section-title text-center">
+            <h3>Menu</h3>
+            <p>Attention ! Il faut être connecté pour commander !</p>
+        </div>
+        
+        <div class="gallery-menu text-center row">
+            <div class="col-md-12">
+                <div class="button-group filter-button-group">
+                    <button class="hvr-radial-in active" data-filter="*">Tous</button>
+                    <button class="hvr-radial-in" data-filter=".gal_a">Menus</button>
+                    <button class="hvr-radial-in" data-filter=".gal_b">Plats</button>
+                    <button class="hvr-radial-in" data-filter=".gal_c">Desserts</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-list row">
+            
+            <app-weekly-menus></app-weekly-menus>
+            <app-meals></app-meals>
+            <app-desserts></app-desserts>
+            
+        </div>
+    </div>
+</div>
