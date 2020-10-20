@@ -15,10 +15,10 @@ export class WeeklyMenusComponent implements OnInit {
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.getFoodsForThisWeek();
+    this.getMenusForThisWeek();
   }
 
-  getFoodsForThisWeek(): void {
+  getMenusForThisWeek(): void {
     this.orderService.getMenusForThisWeek().subscribe(
       (menus) => {
         this.menus = menus;

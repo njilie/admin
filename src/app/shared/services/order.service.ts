@@ -39,6 +39,20 @@ export class OrderService {
     );
   }
 
+  getMenu(menuId: number): Observable<Menu> {
+    return (
+      this.http
+        .get<Menu>(`${API_URL}/menu/find/${menuId}`)
+        .pipe(
+          map((results) => {
+            retry(3),
+            catchError(this.handleError);
+            return results;
+          })
+        )
+    );
+  }
+
   getMenuImage(menuId: number): Observable<Image> {
     return (
       this.http

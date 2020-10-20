@@ -1,6 +1,40 @@
 <div class="section lb">
   <div class="container-fluid">
-    <div class="row">
+    <div *ngFor="let meal of menu.meals">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="message-box">
+            <h2>Composition du plat</h2>
+            <div *ngFor="let ingredient of meal.ingredients">
+              <p>{{ ingredient.label }}</p>
+            </div>
+          </div>
+          <!-- <div *ngFor="let available of meal.availableForWeeks" class="choice">
+            <button class="sim-btn hvr-radial-in">Aujoud'hui {{ available }}</button>
+          </div> -->
+  
+          <button [routerLink]="['../desserts']" class="sim-btn hvr-radial-in">
+            Choisir
+          </button>
+        </div>
+        <div class="col-md-3">
+          <div class="services-inner-box">
+            <div class="ser-icon">
+              <img
+                src="../../../../assets/uploads/menu-img-01.jpg"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <h2>{{ meal.label }}</h2>
+            <a class="hvr-radial-in" href="#">{{ meal.priceDF }} €</a>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+
+    <!-- <div class="row">
       <div class="col-md-8">
         <div class="message-box">
           <h2>Composition du plat</h2>
@@ -121,4 +155,4 @@
     </div>
     <hr />
   </div>
-</div>
+</div> -->
