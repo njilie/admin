@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../../../shared/services/order.service';
+import { MenuService } from '../../../shared/services/menu.service';
 import { Menu } from '../../../shared/interfaces/menu';
 import { Image } from '../../../shared/interfaces/image';
 
@@ -12,18 +12,18 @@ export class WeeklyMenusComponent implements OnInit {
   menus!: Menu[];
   menusImages: Image[] = [];
 
-  constructor(private orderService: OrderService) {}
+  constructor(private menuService: MenuService) {}
 
   ngOnInit(): void {
     this.getMenusForThisWeek();
   }
 
   getMenusForThisWeek(): void {
-    this.orderService.getMenusForThisWeek().subscribe(
+    this.menuService.getMenusForThisWeek().subscribe(
       (menus) => {
         this.menus = menus;
         // this.menus.forEach((menu) => {
-        //   this.orderService.getMenuImage(menu.imageId).subscribe(
+        //   this.menuService.getMenuImage(menu.imageId).subscribe(
         //     (image) => {
         //       this.menusImages.push(image);
         //     },

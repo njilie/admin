@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OrderService } from 'src/app/shared/services/order.service';
+import { MenuService } from 'src/app/shared/services/menu.service';
 import { Menu } from 'src/app/shared/interfaces/menu';
 import { Image } from 'src/app/shared/interfaces/image';
 
@@ -14,7 +14,7 @@ export class MealsOfMenuComponent implements OnInit {
   menuId!: number;
   menusImages!: Image[];
 
-  constructor(private orderService: OrderService, private route: ActivatedRoute) { }
+  constructor(private menuService: MenuService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -25,12 +25,12 @@ export class MealsOfMenuComponent implements OnInit {
   }
 
   getMenu(menuId: number): void {
-    this.orderService.getMenu(menuId).subscribe(
+    this.menuService.getMenu(menuId).subscribe(
       (menu) => {
         console.log(menu);
         this.menu = menu;
         // this.menus.forEach((menu) => {
-        //   this.orderService.getMenuImage(menu.imageId).subscribe(
+        //   this.menuService.getMenuImage(menu.imageId).subscribe(
         //     (image) => {
         //       this.menusImages.push(image);
         //     },
