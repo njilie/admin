@@ -1,32 +1,48 @@
-<!-- Avec image
+<div id="menu" class="section wb">
+  <div class="container-fluid">
+    <div class="section-title text-center">
+      <h3>Menu</h3>
+      <p>Attention ! Il faut être connecté pour commander !</p>
+    </div>
+
+    <!-- Avec image -->
+    <!-- <div class="gallery-list row">
     <div *ngFor="let menu of menus; let i = index;" class="col-md-4 col-sm-6 gallery-grid gal_a">
-    <div class="gallery-single fix">
-        <img [src]="menusImages[i].image64" class="img-fluid" alt="Image">
-        <div class="img-overlay">
-            <h3>{{ menu.label }}</h3>
-            <a [routerLink]="['menu', menu.id, 'meals']" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
+        <div class="gallery-single fix">
+            <img [src]="menusImages[i].image64" class="img-fluid" alt="Image">
+            <div class="img-overlay">
+                <h3>{{ menu.label }}</h3>
+                <a [routerLink]="['menu', menu.id, 'meals']" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
+            </div>
         </div>
     </div>
 </div> -->
 
-<!-- Sans image
-    <div *ngFor="let menu of menus" class="col-md-4 col-sm-6 gallery-grid gal_a">
-    <div class="gallery-single fix">
-        <img src="../../../assets/uploads/gallery_img-01.jpg" class="img-fluid" alt="Image">
-        <div class="img-overlay">
+    <!-- Sans image -->
+    <div class="gallery-list row">
+      <div *ngFor="let menu of menus" class="col-md-4 col-sm-6">
+        <div class="gallery-single fix">
+          <img src="../../../assets/uploads/gallery_img-01.jpg" class="img-fluid" alt="Image">
+          <div class="img-overlay">
             <h3>{{ menu.label }}</h3>
-            <a [routerLink]="['menu', menu.id, 'meals']" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
+            <a [routerLink]="['../menu', menu.id, 'meals']" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius">
+              <i class="fa fa-picture-o"></i>
+            </a>
+          </div>
         </div>
+      </div>
     </div>
-</div> -->
+  </div>
+</div>
 
-<div class="col-md-4 col-sm-6 gallery-grid gal_a">
+<!-- <div class="col-md-4 col-sm-6 gallery-grid gal_a">
     <div class="gallery-single fix">
         <img src="../../../assets/uploads/gallery_img-01.jpg" class="img-fluid" alt="Image">
         <div class="img-overlay">
             <h3>Vegetable Food</h3>
             <a [routerLink]="['menu', 1, 'meals']" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
-        </div> <!--routerLink="../second-component"--> <!--[routerLink]="['/menu/', 1, '/meals']"-->
+        </div> <!-routerLink="../second-component"-->
+<!--[routerLink]="['/menu/', 1, '/meals']"->
     </div>
 </div>
 
@@ -58,4 +74,4 @@
             <a href="../../../assets/uploads/gallery_img-04.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
         </div>
     </div>
-</div>
+</div> -->

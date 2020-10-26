@@ -9,6 +9,7 @@ import { Image } from '../../../shared/interfaces/image';
   styleUrls: ['./weekly-menus.component.css'],
 })
 export class WeeklyMenusComponent implements OnInit {
+
   menus!: Menu[];
   menusImages: Image[] = [];
 

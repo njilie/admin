@@ -12,6 +12,8 @@ import { API_URL } from '../constants/api-url';
 import { Menu } from '../interfaces/menu';
 import { Image } from '../interfaces/image';
 
+import { handleError } from '../constants/handle-http-errors';
+
 @Injectable({
   providedIn: 'root'
 })

@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component';
 import { MealsOfMenuComponent } from './orderable/meals-of-menu/meals-of-menu.component';
 import { DessertsOfMenuComponent } from './orderable/desserts-of-menu/desserts-of-menu.component';
 import { MealsComponent } from './orderable/meals/meals.component';
+import { WeeklyMenusComponent } from './orderable/weekly-menus/weekly-menus.component';
 
 const routes: Routes = [
   {
@@ -12,22 +13,30 @@ const routes: Routes = [
     children: [
       {
         path: '', // /home
-        component: HomeComponent
+        component: HomeComponent,
+      },
+      {
+        path: 'menus', // /home
+        component: WeeklyMenusComponent,
+      },
+      {
+        path: 'meals', // /home
+        component: MealsComponent,
       },
       {
         path: 'menu/:id/meals', // /home/menu/:id/meals
-        component: MealsOfMenuComponent
+        component: MealsOfMenuComponent,
       },
       {
         path: 'menu/:id/desserts', // /home/menu/:id/desserts
-        component: DessertsOfMenuComponent
-      }
-    ]
-  }
+        component: DessertsOfMenuComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}

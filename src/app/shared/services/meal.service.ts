@@ -9,6 +9,8 @@ import { map, catchError, retry } from 'rxjs/operators';
 
 import { API_URL } from '../constants/api-url';
 
+import { handleError } from '../constants/handle-http-errors';
+
 import { Meal } from '../interfaces/meal';
 import { Image } from '../interfaces/image';
 

@@ -9,11 +9,20 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link js-scroll-trigger active" href="#infos"><span>Infos</span></a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger active" [routerLink]="['home']"><span>Accueil</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#menu"><span>Menu</span></a>
+            <a class="nav-link js-scroll-trigger" [routerLink]="['home/menus']"><span>Menu</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" [routerLink]="['home/meals']"><span>Plat</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" [routerLink]="['home/desserts']"><span>Dessert</span></a>
           </li>
         </ul>
       </div>
