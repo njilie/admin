@@ -23,16 +23,16 @@ export class MealsComponent implements OnInit {
     this.mealService.getMealsForThisWeek().subscribe(
       (meals) => {
         this.meals = meals;
-        this.meals.forEach((meal) => {
-          this.mealService.getMealImage(meal.imageId).subscribe(
-            (image) => {
-              this.mealsImages.push(image);
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-        });
+        // this.meals.forEach((meal) => {
+        //   this.mealService.getMealImage(meal.imageId).subscribe(
+        //     (image) => {
+        //       this.mealsImages.push(image);
+        //     },
+        //     (error) => {
+        //       console.log(error);
+        //     }
+        //   );
+        // });
       },
       (error) => {
         console.log(error);
