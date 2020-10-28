@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,13 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { OrderService } from './shared/services/order.service';
+
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthService } from './shared/auth/auth.service';
+export function tokenGetter(): string {
+  return localStorage.getItem('jwt');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,11 +41,21 @@ import { OrderService } from './shared/services/order.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: ['localhost:8080'],
+        disallowedRoutes: []
+      }
+    }),
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     HomeModule,
     OrdersModule
   ],
   providers: [
+    AuthService,
     OrderService
   ],
   bootstrap: [AppComponent]
