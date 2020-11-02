@@ -14,6 +14,8 @@ import { DessertsOfMenuComponent } from './orderable/desserts-of-menu/desserts-o
 
 import { OrderService } from '../shared/services/order.service';
 
+import { MatTabsModule } from '@angular/material/tabs';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -28,7 +30,8 @@ import { OrderService } from '../shared/services/order.service';
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    MatTabsModule
   ],
   providers: [
     OrderService

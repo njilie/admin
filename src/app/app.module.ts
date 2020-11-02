@@ -26,6 +26,8 @@ export function tokenGetter(): string {
   return localStorage.getItem('jwt');
 }
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,8 @@ export function tokenGetter(): string {
     ReactiveFormsModule,
     HttpClientModule,
     HomeModule,
-    OrdersModule
+    OrdersModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,

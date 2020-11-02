@@ -23,7 +23,7 @@ const routes: Routes = [
       {
         path: 'meals', // /home
         component: MealsComponent,
-        canActivate: [AuthService]
+        // canActivate: [AuthService]
       },
       {
         path: 'menu/:id/meals', // /home/menu/:id/meals

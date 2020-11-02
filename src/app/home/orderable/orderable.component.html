@@ -1,4 +1,19 @@
 <div id="menu" class="section wb">
+  <div class="container-fluid">
+    <div class="section-title text-center">
+      <h3>Menu</h3>
+      <p>Attention ! Il faut être connecté pour commander !</p>
+    </div>
+
+    <mat-tab-group mat-align-tabs="center" dynamicHeight>
+      <mat-tab label="Menus"><app-weekly-menus></app-weekly-menus></mat-tab>
+      <mat-tab label="Plats"><app-meals></app-meals></mat-tab>
+      <!-- <mat-tab label="Desserts"><app-desserts></app-desserts></mat-tab> -->
+    </mat-tab-group>
+  </div>
+</div>
+
+<!-- <div id="menu" class="section wb">
     <div class="container-fluid">
         <div class="section-title text-center">
             <h3>Menu</h3>
@@ -18,10 +33,10 @@
         
         <div class="gallery-list row">
             
-            <!-- <app-weekly-menus></app-weekly-menus> -->
+            <app-weekly-menus></app-weekly-menus>
             <app-meals></app-meals>
             <app-desserts></app-desserts>
             
         </div>
     </div>
-</div>
+</div> -->

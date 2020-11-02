@@ -15,7 +15,7 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['home']" [routerLinkActive]="['active']"><span>Accueil</span></a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" [routerLink]="['home/menus']" [routerLinkActive]="['active']"><span>Menu</span></a>
           </li>
           <li class="nav-item">
@@ -23,7 +23,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['home/desserts']" [routerLinkActive]="['active']"><span>Dessert</span></a>
-          </li>
+          </li> -->
           
           <li *ngIf="authService.isUserAuthenticated(); else notAuthenticated" class="nav-item">
             <a class="nav-link" [routerLink]="['logout']"><span>Deconnexion</span></a>
