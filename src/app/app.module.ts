@@ -27,6 +27,8 @@ export function tokenGetter(): string {
 }
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     HomeModule,
     OrdersModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [
     AuthService,

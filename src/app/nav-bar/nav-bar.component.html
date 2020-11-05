@@ -33,6 +33,24 @@
               <a class="nav-link" [routerLink]="['login']" [routerLinkActive]="['active']"><span>Connexion</span></a>
             </li>
           </ng-template>
+          <button mat-icon-button [matMenuTriggerFor]="profile" mat-icon-button class="btn-profile m-r-5">
+            <!-- <img src="../../assets/uploads/gallery_img-01.jpg" class="img-fluid" alt="Image"> -->
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <mat-menu #profile="matMenu">
+            <button mat-menu-item>
+              <mat-icon>dialpad</mat-icon>
+              <span>Redial</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>voicemail</mat-icon>
+              <span>Check voice mail</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>notifications_off</mat-icon>
+              <span>Disable alerts</span>
+            </button>
+          </mat-menu>
         </ul>
       </div>
     </div>
