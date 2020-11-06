@@ -29,6 +29,7 @@ export function tokenGetter(): string {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MatIconModule } from '@angular/material/icon';
     LogoutComponent,
     LoaderComponent,
     NavBarComponent,
-    FooterComponent
+    FooterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

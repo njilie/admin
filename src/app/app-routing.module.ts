@@ -6,6 +6,7 @@ import { ForgotComponent } from './authentication/forgot/forgot.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { RegisterComponent } from './authentication/register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
       {
         path: 'orders', // /orders
         loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)
+      },
+      {
+        path: 'profile', // /profile
+        component: ProfileComponent
       },
     ]
   }
