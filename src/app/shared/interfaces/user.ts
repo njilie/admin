@@ -3,7 +3,7 @@ export interface User {
   address: string;
   wallet: number;
   postalCode: string;
-  registrationDate: Date;
+  registrationDate: Date | number[];
   email: string;
   isLunchLady: boolean;
   name: string;

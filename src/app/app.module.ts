@@ -14,6 +14,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { ForgotComponent } from './authentication/forgot/forgot.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
+import { ProfileComponent } from './profile/profile.component';
 import { LoaderComponent } from './loader/loader.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -28,8 +29,8 @@ export function tokenGetter(): string {
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -39,10 +40,10 @@ import { ProfileComponent } from './profile/profile.component';
     RegisterComponent,
     ForgotComponent,
     LogoutComponent,
+    ProfileComponent,
     LoaderComponent,
     NavBarComponent,
-    FooterComponent,
-    ProfileComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +62,7 @@ import { ProfileComponent } from './profile/profile.component';
     OrdersModule,
     BrowserAnimationsModule,
     MatMenuModule,
+    MatCardModule,
     MatIconModule
   ],
   providers: [

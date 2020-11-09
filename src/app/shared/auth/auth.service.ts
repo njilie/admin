@@ -9,6 +9,7 @@ import {
 import { map, retry, catchError } from 'rxjs/operators';
 import { API_URL } from '../constants/api-url';
 import { Observable, throwError } from 'rxjs';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -91,7 +92,28 @@ export class AuthService {
     return throwError('Something bad happened; please try again later.');
   }
 
-  // tokenGetter(): string {
-  //   return localStorage.getItem('jwt');
+  public userLogged(): User {
+    const token = this.tokenDecoded();
+    const user = token.user;
+    return user;
+  }
+
+  public userLoggedRoles(): string[] {
+    return this.tokenDecoded().roles;
+  }
+
+  public tokenGetter(): string {
+    return localStorage.getItem('jwt');
+  }
+
+  private tokenDecoded(): any {
+    const token = this.tokenGetter();
+    const decodedToken = atob(token.split('.')[1]);
+    const decodedTokenJsonFormat = JSON.parse(decodedToken);
+    return decodedTokenJsonFormat;
+  }
+
+  // public tokenExpiration(): Date {
+  //   return this.tokenDecoded().exp;
   // }
 }
