@@ -30,6 +30,7 @@ export function tokenGetter(): string {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
@@ -63,6 +64,7 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     MatMenuModule,
     MatCardModule,
+    MatSelectModule,
     MatIconModule
   ],
   providers: [

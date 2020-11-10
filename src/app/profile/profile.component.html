@@ -3,8 +3,8 @@
     <mat-card>
       <mat-card-content>
         <div class="container">
-          <div class="row">
-            <div class="col-md-6">
+          <!-- <div class="row"> -->
+            <!-- <div class="col-md-6">
               <p>{{ user.firstname }}</p>
               <p>{{ user.email }}</p>
               <p>{{ user.sex }}</p>
@@ -18,9 +18,89 @@
               <div class="space"></div>
               <p>{{ user.phone }}</p>
               <p>{{ user.postalCode }}</p>
-            </div>
+            </div> -->
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div>
+                  <label>
+                    Prénom :
+                    <input type="text" formControlName="firstname" [(ngModel)]="user.firstname">
+                  </label>
+                  </div>
+                  <div>
+                  <label>
+                    Email :
+                    <input type="email" formControlName="email" [(ngModel)]="user.email">
+                  </label>
+                  </div>
+                  <div>
+                  <!-- <label>
+                    Sexe :
+                      <mat-form-field appearance="fill">
+                        <mat-select formControlName="sex" [(value)]="user.sex">
+                          <mat-option value="0">Homme</mat-option>
+                          <mat-option value="1">Femme</mat-option>
+                          <mat-option value="2">Autre</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </label> -->
+                  <mat-form-field>
+                    <mat-label>Sexe :</mat-label>
+                    <mat-select formControlName="sex" [(value)]="sex">
+                      <mat-option value="0">Homme</mat-option>
+                      <mat-option value="1">Femme</mat-option>
+                      <mat-option value="2">Autre</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
+                  <div>
+                  <label>
+                    Adresse :
+                    <input type="text" formControlName="address" [(ngModel)]="user.address" placeholder="21 ALLEE DES BOSQUETS">
+                  </label>
+                  </div>
+                  <div>
+                  <label>
+                    Ville :
+                    <input type="text" formControlName="town" [(ngModel)]="user.town" placeholder="Marseille">
+                  </label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div>
+                  <label>
+                    Nom :
+                    <input type="text" formControlName="name" [(ngModel)]="user.name">
+                  </label>
+                  </div>
+                  <div>
+                  <p>Mot de passe</p>
+                  </div>
+                  <div class="space"></div>
+                  <div>
+                  <label>
+                    Tel :
+                    <input type="tel" formControlName="phone" [(ngModel)]="user.phone" pattern="[0-9]{10}"
+                    placeholder="0782354512">
+                    <!-- <input type="tel" formControlName="phone" [(ngModel)]="user.phone"
+                    pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$"
+                    placeholder="0782354512 ou +33 782354512"> -->
+                  </label>
+                  </div>
+                  <div>
+                  <label>
+                    Code postal :
+                    <input type="text" formControlName="postalCode" [(ngModel)]="user.postalCode" pattern="[0-9]{5}" placeholder="94110">
+                  </label>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" [disabled]="!form.valid">Modifier</button>
+            </form>
           </div>
-        </div>
+        <!-- </div> -->
       </mat-card-content>
     </mat-card>
   </div>

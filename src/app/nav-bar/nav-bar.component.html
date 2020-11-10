@@ -1,21 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container-fluid">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">
-          <img class="img-fluid" src="images/logo.png" alt="" />
-      </a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fa fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <!-- <li class="nav-item">
+  <div class="container-fluid">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+      <img class="img-fluid" src="images/logo.png" alt="">
+    </a>
+    <button
+      class="navbar-toggler navbar-toggler-right"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarResponsive"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <!-- <li class="nav-item">
             <a class="nav-link js-scroll-trigger active" href="#infos"><span>Infos</span></a>
           </li> -->
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['home']" [routerLinkActive]="['active']"><span>Accueil</span></a>
-          </li>
-          <!-- <li class="nav-item">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['home']" [routerLinkActive]="['active']"><span>Accueil</span></a>
+        </li>
+        <!-- <li class="nav-item">
             <a class="nav-link" [routerLink]="['home/menus']" [routerLinkActive]="['active']"><span>Menu</span></a>
           </li>
           <li class="nav-item">
@@ -24,34 +31,49 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['home/desserts']" [routerLinkActive]="['active']"><span>Dessert</span></a>
           </li> -->
-          
-          <li *ngIf="authService.isUserAuthenticated(); else notAuthenticated" class="nav-item">
-            <a class="nav-link" [routerLink]="['logout']"><span>Deconnexion</span></a>
-          </li>
-          <ng-template #notAuthenticated>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="['login']" [routerLinkActive]="['active']"><span>Connexion</span></a>
-            </li>
-          </ng-template>
-          <button mat-icon-button [matMenuTriggerFor]="profile" mat-icon-button class="btn-profile m-r-5">
-            <!-- <img src="../../assets/uploads/gallery_img-01.jpg" class="img-fluid" alt="Image"> -->
-            <mat-icon>account_circle</mat-icon>
+
+        <button *ngIf="authService.isUserAuthenticated(); else notAuthenticated"
+          mat-icon-button
+          [matMenuTriggerFor]="profile"
+          mat-icon-button
+          class="btn-profile m-r-5">
+          <!-- <img src="../../assets/uploads/gallery_img-01.jpg" class="img-fluid" alt="Image"> -->
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #profile="matMenu">
+          <button mat-menu-item [routerLink]="['profile']">
+            <mat-icon>face</mat-icon>
+            <span>Profil</span>
           </button>
-          <mat-menu #profile="matMenu">
-            <button mat-menu-item>
-              <mat-icon>dialpad</mat-icon>
-              <span>Redial</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>voicemail</mat-icon>
-              <span>Check voice mail</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>notifications_off</mat-icon>
-              <span>Disable alerts</span>
-            </button>
-          </mat-menu>
-        </ul>
-      </div>
+          <button mat-menu-item>
+            <mat-icon>shopping_basket</mat-icon>
+            <span>Mes commandes en cours (panier)</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>format_align_left</mat-icon>
+            <span>Toutes mes commandes</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>euro</mat-icon>
+            <span>Cagnotte 223 €</span>
+          </button>
+          <hr>
+          <button mat-menu-item [routerLink]="['logout']">
+            <mat-icon>logout</mat-icon>
+            <span>Deconnexion</span>
+          </button>
+        </mat-menu>
+        <!-- <li *ngIf="authService.isUserAuthenticated(); else notAuthenticated" class="nav-item">
+          <a class="nav-link" [routerLink]="['logout']"><span>Deconnexion</span></a>
+        </li> -->
+        <ng-template #notAuthenticated>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['login']" [routerLinkActive]="['active']">
+              <span>Connexion</span>
+            </a>
+          </li>
+        </ng-template>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
