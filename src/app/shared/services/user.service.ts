@@ -10,6 +10,7 @@ import { map, catchError, retry } from 'rxjs/operators';
 import { API_URL } from '../constants/api-url';
 
 import { User } from '../interfaces/user';
+import { Image } from '../interfaces/image';
 
 import { handleError } from '../constants/handle-http-errors';
 
@@ -20,7 +21,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUser(userId: number): Observable<User> {
+  user(userId: number): Observable<User> {
     return (
       this.http
         .get<User>(`${API_URL}/user/find/${userId}`)
@@ -29,6 +30,35 @@ export class UserService {
             retry(3),
             catchError(this.handleError);
             console.log(results);
+            return results;
+          })
+        )
+    );
+  }
+
+  update(userId: number, user: User): Observable<User> {
+    console.log(user);
+    return (
+      this.http
+        .patch<User>(`${API_URL}/user/update/${userId}`, user)
+        .pipe(
+          map((results) => {
+            retry(3),
+            catchError(this.handleError);
+            return results;
+          })
+        )
+    );
+  }
+
+  userImage(userId: number): Observable<Image> {
+    return (
+      this.http
+        .get<Image>(`${API_URL}/user/findimg/${userId}`)
+        .pipe(
+          map((results) => {
+            retry(3),
+            catchError(this.handleError);
             return results;
           })
         )

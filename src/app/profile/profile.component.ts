@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth/auth.service';
+import { UserService } from '../shared/services/user.service';
 import { User } from '../shared/interfaces/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Image } from '../shared/interfaces/image';
 
 @Component({
   selector: 'app-profile',
@@ -10,11 +12,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  profilePicture: Image;
   registrationDate: number[];
   form: FormGroup;
-  sex: string;
 
-  constructor(private auth: AuthService, private fb: FormBuilder) {}
+  constructor(private auth: AuthService, private userService: UserService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.user = this.auth.userLogged();
@@ -27,20 +29,7 @@ export class ProfileComponent implements OnInit {
     //   console.log(element);
     // });
 
-    switch (this.user.sex) {
-      case 0: {
-        this.sex = 'Homme';
-        break;
-      }
-      case 1: {
-        this.sex = 'Femme';
-        break;
-      }
-      case 2: {
-        this.sex = 'Autre';
-        break;
-      }
-    }
+    this.userImage(this.user.id)
 
     this.form = this.fb.group({
       address: [''],
@@ -54,18 +43,42 @@ export class ProfileComponent implements OnInit {
       sex: ['', Validators.required],
     });
 
-    // this.form.get('sex').setValue(this.sex);
-
     // Validators.compose([
     //   Validators.required,
     //   Validators.minLength(4)
     // ])
   }
 
+  userImage(userId: number): void {
+    this.userService.userImage(userId).subscribe(
+      (data) => {
+        console.log(data);
+        this.profilePicture = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   onSubmit(): void {
     if (this.form.valid) {
-      console.log(this.form.value);
-      console.log(+this.form.get('sex').value);
+      this.user.sex = +this.form.get('sex').value;
+
+      // if (this.form.get('password').value && this.form.value.password) {
+      //   this.user.password = this.form.get('password').value;
+      // } else {
+      //   delete this.form.value.password;
+      // }
+
+      this.userService.update(this.user.id, this.form.value).subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
   }
 }
