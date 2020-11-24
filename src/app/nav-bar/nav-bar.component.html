@@ -37,8 +37,8 @@
           [matMenuTriggerFor]="profile"
           mat-icon-button
           class="btn-profile m-r-5">
-          <!-- <img src="../../assets/uploads/gallery_img-01.jpg" class="img-fluid" alt="Image"> -->
-          <mat-icon>account_circle</mat-icon>
+          <img *ngIf="profilePicture; else noPicture" [src]="profilePicture.image64" class="img-fluid border rounded-circle shadow-sm p-1 bg-white" alt="Image">
+          <ng-template #noPicture><mat-icon>account_circle</mat-icon></ng-template>
         </button>
         <mat-menu #profile="matMenu">
           <button mat-menu-item [routerLink]="['profile']">

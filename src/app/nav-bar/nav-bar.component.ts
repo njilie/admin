@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth/auth.service';
+import { UserService } from '../shared/services/user.service';
+import { User } from '../shared/interfaces/user';
+import { Image } from '../shared/interfaces/image';
 
 declare let $: any;
 
@@ -9,9 +12,21 @@ declare let $: any;
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
-  constructor(public authService: AuthService) {}
+
+  user: User;
+  profilePicture: Image;
+
+  constructor(public authService: AuthService, private userService: UserService) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('userChangedValues')) {
+      this.user = JSON. parse(localStorage.getItem('userChangedValues'));
+    }
+    else {
+      this.user = this.authService.userLogged();
+    }
+
+    this.userImage(this.user.id);
     // // Smooth scrolling using jQuery easing
     // $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
     //   if (
@@ -67,5 +82,16 @@ export class NavBarComponent implements OnInit {
     // $('.portfolio-modal').on('hidden.bs.modal', function(e) {
     //   $('.navbar').removeClass('d-none');
     // });
+  }
+
+  userImage(userId: number): void {
+    this.userService.userImage(userId).subscribe(
+      (data) => {
+        this.profilePicture = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

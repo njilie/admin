@@ -61,3 +61,11 @@
     background: initial;
     outline: none;
 }
+
+.btn-profile img {
+	width: 40px;
+}
+
+.btn-profile mat-icon {
+	font-size: 40px;
+}

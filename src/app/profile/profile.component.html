@@ -6,11 +6,11 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
               <div class="row mb-5">
                 <!-- <div class="rounded-circle border"> -->
-                  <img [src]="profilePicture.image64" class="img-fluid border rounded-circle shadow-sm p-3 mb-3 bg-white" alt="">
+                  <img *ngIf="profilePicture" [src]="profilePicture.image64" class="img-fluid border rounded-circle shadow-sm p-3 mb-3 bg-white" alt="">
                   
-                  <div class="custom-file">
+                  <!-- <div class="custom-file">
                     <input type="file" accept="image/png, image/jpeg">
-                  </div>
+                  </div> -->
                 <!-- </div> -->
               </div>
               <div class="row">
@@ -118,14 +118,14 @@
                       <input type="text" class="form-control" formControlName="name" [(ngModel)]="user.name">
                     </div>
                   </div>
-                  <!-- <div class="form-group row">
+                  <div class="form-group row">
                     <div class="col-md-5">
                       <label>Nouveau mot de passe :</label>
                     </div>
                     <div class="col-md-7">
                       <input type="password" class="form-control" formControlName="password" [(ngModel)]="user.password">
                     </div>
-                  </div> -->
+                  </div>
                   <div class="form-space"></div>
                   <!-- <div>
                   <label>

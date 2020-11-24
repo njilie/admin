@@ -6,7 +6,7 @@ export interface User {
   registrationDate: Date | number[];
   email: string;
   isLunchLady: boolean;
-  // password: string;
+  password: string;
   name: string;
   firstname: string;
   phone: string;

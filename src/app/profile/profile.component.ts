@@ -19,7 +19,12 @@ export class ProfileComponent implements OnInit {
   constructor(private auth: AuthService, private userService: UserService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.user = this.auth.userLogged();
+    if (localStorage.getItem('userChangedValues')) {
+      this.user = JSON. parse(localStorage.getItem('userChangedValues'));
+    }
+    else {
+      this.user = this.auth.userLogged();
+    }
     // console.log(this.auth.userLogged());
     // console.log(this.auth.userLoggedRoles());
     // console.log(this.auth.tokenGetter());
@@ -29,13 +34,13 @@ export class ProfileComponent implements OnInit {
     //   console.log(element);
     // });
 
-    this.userImage(this.user.id)
+    this.userImage(this.user.id);
 
     this.form = this.fb.group({
       address: [''],
       postalCode: ['', Validators.minLength(5)],
       email: ['', Validators.required],
-      // password: [''],
+      password: [''],
       name: ['', Validators.required],
       firstname: ['', Validators.required],
       phone: [''],
@@ -52,7 +57,6 @@ export class ProfileComponent implements OnInit {
   userImage(userId: number): void {
     this.userService.userImage(userId).subscribe(
       (data) => {
-        console.log(data);
         this.profilePicture = data;
       },
       (error) => {
@@ -74,6 +78,8 @@ export class ProfileComponent implements OnInit {
       this.userService.update(this.user.id, this.form.value).subscribe(
         (data) => {
           console.log(data);
+          localStorage.setItem('userChangedValues', JSON.stringify(data));
+          this.user = data;
         },
         (error) => {
           console.log(error);
