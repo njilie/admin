@@ -57,6 +57,7 @@ export class AuthService {
     // Dès que le user perd son token il n'a plus acces à certaines pages du site
     // donc il est déconnecté en gros
     localStorage.removeItem('jwt');
+    localStorage.removeItem('userChangedValues');
     // et on redirige vers la page d'accueil
     this.router.navigate(['/']);
  }
@@ -108,9 +109,13 @@ export class AuthService {
 
   private tokenDecoded(): any {
     const token = this.tokenGetter();
-    const decodedToken = atob(token.split('.')[1]);
-    const decodedTokenJsonFormat = JSON.parse(decodedToken);
-    return decodedTokenJsonFormat;
+    if (token) {
+      const decodedToken = atob(token.split('.')[1]);
+      const decodedTokenJsonFormat = JSON.parse(decodedToken);
+      return decodedTokenJsonFormat;
+    } else {
+      return false;
+    }
   }
 
   // public tokenExpiration(): Date {

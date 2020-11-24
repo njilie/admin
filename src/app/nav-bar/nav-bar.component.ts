@@ -15,18 +15,13 @@ export class NavBarComponent implements OnInit {
 
   user: User;
   profilePicture: Image;
+  authenticated: boolean;
 
   constructor(public authService: AuthService, private userService: UserService) {}
 
   ngOnInit(): void {
-    if (localStorage.getItem('userChangedValues')) {
-      this.user = JSON. parse(localStorage.getItem('userChangedValues'));
-    }
-    else {
-      this.user = this.authService.userLogged();
-    }
-
-    this.userImage(this.user.id);
+    console.log(this.authService.isUserAuthenticated());
+    this.userImage();
     // // Smooth scrolling using jQuery easing
     // $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
     //   if (
@@ -84,14 +79,23 @@ export class NavBarComponent implements OnInit {
     // });
   }
 
-  userImage(userId: number): void {
-    this.userService.userImage(userId).subscribe(
-      (data) => {
-        this.profilePicture = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  userImage(): void {
+    if (localStorage.getItem('userChangedValues')) {
+      this.user = JSON. parse(localStorage.getItem('userChangedValues'));
+    }
+    else {
+      this.user = this.authService.userLogged();
+    }
+
+    if (this.user) {
+      this.userService.userImage(this.user.id).subscribe(
+        (data) => {
+          this.profilePicture = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 }
