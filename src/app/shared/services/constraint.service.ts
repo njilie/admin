@@ -10,18 +10,19 @@ import { map, catchError, retry } from 'rxjs/operators';
 import { API_URL } from '../constants/api-url';
 
 import { handleError } from '../constants/handle-http-errors';
-import { Order } from '../interfaces/order';
+import { Constraint } from '../interfaces/constraint';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class OrderService {
-  constructor(private http: HttpClient) {}
+export class ConstraintService {
 
-  getTodayOrdersOfUser(userId: number): Observable<Order[]> {
+  constructor(private http: HttpClient) { }
+
+  getAllConstraints(): Observable<Constraint[]> {
     return (
       this.http
-        .get<Order[]>(`${API_URL}/order/findallforusertoday/${userId}`)
+        .get<Constraint[]>(`${API_URL}/constraint/findall`)
         .pipe(
           map((results) => {
             retry(3),
@@ -32,39 +33,10 @@ export class OrderService {
     );
   }
 
-  getOngoingOrdersOfUser(userId: number): Observable<Order[]> { // mettre le status 0 (created)
+  getConstraint(constraintId: number): Observable<Constraint> {
     return (
       this.http
-        .get<Order[]>(`${API_URL}/order/findallforuser/${userId}`)
-        .pipe(
-          map((results) => {
-            retry(3),
-            catchError(this.handleError);
-            return results;
-          })
-        )
-    );
-  }
-
-  getAllOrdersOfUser(userId: number): Observable<Order[]> {
-    return (
-      this.http
-        .get<Order[]>(`${API_URL}/order/findallforuser/${userId}`)
-        .pipe(
-          map((results) => {
-            retry(3),
-            catchError(this.handleError);
-            return results;
-          })
-        )
-    );
-  }
-
-  add(order: Order): Observable<Order> {
-    console.log(order);
-    return (
-      this.http
-        .patch<Order>(`${API_URL}/order/add`, order)
+        .get<Constraint>(`${API_URL}/constraint/find/${constraintId}`)
         .pipe(
           map((results) => {
             retry(3),

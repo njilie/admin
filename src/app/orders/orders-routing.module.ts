@@ -9,11 +9,11 @@ const routes: Routes = [
       {
         path: '', // /orders
         component: OrdersComponent
+      },
+      {
+        path: ':all', // /orders/:all
+        component: OrdersComponent
       }
-      // {
-      //   path: 'all', // /orders/all
-      //   component: AllOrdersComponent
-      // }
     ]
   }
 ];

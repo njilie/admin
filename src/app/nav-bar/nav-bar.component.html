@@ -45,17 +45,17 @@
             <mat-icon>face</mat-icon>
             <span>Profil</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item [routerLink]="['orders']">
             <mat-icon>shopping_basket</mat-icon>
             <span>Mes commandes en cours (panier)</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item [routerLink]="['orders/all']">
             <mat-icon>format_align_left</mat-icon>
             <span>Toutes mes commandes</span>
           </button>
           <button mat-menu-item>
             <mat-icon>euro</mat-icon>
-            <span>Cagnotte 223 €</span>
+            <span>Cagnotte {{ user.wallet }} €</span>
           </button>
           <hr>
           <button mat-menu-item [routerLink]="['logout']">

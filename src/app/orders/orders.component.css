@@ -8,8 +8,20 @@
     text-transform: none;
 }
 
-.message-box p {
+.message-box p, .ingredient-container {
     margin-bottom: 20px;
+}
+
+.ingredient-container p {
+    margin-bottom: 12px;
+}
+
+.ingredient-container ul {
+    padding-left: 40px;
+}
+
+.ingredient-container ul li {
+    list-style-type: circle;
 }
 
 .sim-btn:focus {
@@ -27,4 +39,8 @@ header {
 
 header .sim-btn {
     margin-bottom: 20px;
+}
+
+.order-number-container {
+    margin-bottom: 35px;
 }

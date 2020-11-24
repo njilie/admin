@@ -20,8 +20,7 @@ export class NavBarComponent implements OnInit {
   constructor(public authService: AuthService, private userService: UserService) {}
 
   ngOnInit(): void {
-    console.log(this.authService.isUserAuthenticated());
-    this.userImage();
+    this.userInfos();
     // // Smooth scrolling using jQuery easing
     // $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
     //   if (
@@ -79,7 +78,7 @@ export class NavBarComponent implements OnInit {
     // });
   }
 
-  userImage(): void {
+  userInfos(): void {
     if (localStorage.getItem('userChangedValues')) {
       this.user = JSON. parse(localStorage.getItem('userChangedValues'));
     }
