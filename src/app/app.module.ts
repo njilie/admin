@@ -25,7 +25,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthService } from './shared/auth/auth.service';
 export function tokenGetter(): string {
   let token = localStorage.getItem('jwt');
-  token = token.replace('Bearer ', '');
+  if (token) {
+    token = token.replace('Bearer ', '');
+  }
   return token;
 }
 
