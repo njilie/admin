@@ -55,7 +55,7 @@
           </button>
           <button mat-menu-item>
             <mat-icon>euro</mat-icon>
-            <span>Cagnotte {{ user.wallet }} €</span>
+            <span *ngIf="user">Cagnotte {{ user.wallet }} €</span>
           </button>
           <hr>
           <button mat-menu-item [routerLink]="['logout']">

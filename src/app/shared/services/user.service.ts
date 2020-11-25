@@ -37,7 +37,6 @@ export class UserService {
   }
 
   update(userId: number, user: User): Observable<User> {
-    console.log(user);
     return (
       this.http
         .patch<User>(`${API_URL}/user/update/${userId}`, user)
@@ -55,6 +54,21 @@ export class UserService {
     return (
       this.http
         .get<Image>(`${API_URL}/user/findimg/${userId}`)
+        .pipe(
+          map((results) => {
+            retry(3),
+            catchError(this.handleError);
+            return results;
+          })
+        )
+    );
+  }
+
+  updateImage(userId: number, image: Image): any {
+    console.log(image);
+    return (
+      this.http
+        .patch<User>(`${API_URL}/user/updateimg/${userId}`, image)
         .pipe(
           map((results) => {
             retry(3),

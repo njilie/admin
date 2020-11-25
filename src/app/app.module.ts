@@ -24,7 +24,9 @@ import { OrderService } from './shared/services/order.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthService } from './shared/auth/auth.service';
 export function tokenGetter(): string {
-  return localStorage.getItem('jwt');
+  let token = localStorage.getItem('jwt');
+  token = token.replace('Bearer ', '');
+  return token;
 }
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

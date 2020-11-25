@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
     this.userImage(this.user.id);
 
     this.form = this.fb.group({
+      imagePath: [''],
       address: [''],
       postalCode: ['', Validators.minLength(5)],
       email: ['', Validators.required],
@@ -52,12 +53,15 @@ export class ProfileComponent implements OnInit {
     //   Validators.required,
     //   Validators.minLength(4)
     // ])
+
+    console.log(this.user);
   }
 
   userImage(userId: number): void {
     this.userService.userImage(userId).subscribe(
       (data) => {
         this.profilePicture = data;
+        console.log(this.profilePicture);
       },
       (error) => {
         console.log(error);
@@ -68,6 +72,7 @@ export class ProfileComponent implements OnInit {
   onSubmit(): void {
     if (this.form.valid) {
       this.user.sex = +this.form.get('sex').value;
+      this.profilePicture.imagePath = this.form.get('imagePath').value;
 
       // if (this.form.get('password').value && this.form.value.password) {
       //   this.user.password = this.form.get('password').value;
@@ -75,9 +80,17 @@ export class ProfileComponent implements OnInit {
       //   delete this.form.value.password;
       // }
 
-      this.userService.update(this.user.id, this.form.value).subscribe(
+      this.userService.updateImage(this.user.id, this.profilePicture).subscribe(
         (data) => {
           console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+
+      this.userService.update(this.user.id, this.form.value).subscribe(
+        (data) => {
           localStorage.setItem('userChangedValues', JSON.stringify(data));
           this.user = data;
         },
@@ -86,5 +99,17 @@ export class ProfileComponent implements OnInit {
         }
       );
     }
+  }
+
+  convertBase64(event: any): void {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.profilePicture.image64 = reader.result as string;
+    };
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
   }
 }

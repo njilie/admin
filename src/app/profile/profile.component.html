@@ -8,9 +8,9 @@
                 <!-- <div class="rounded-circle border"> -->
                   <img *ngIf="profilePicture" [src]="profilePicture.image64" class="img-fluid border rounded-circle shadow-sm p-3 mb-3 bg-white" alt="">
                   
-                  <!-- <div class="custom-file">
-                    <input type="file" accept="image/png, image/jpeg">
-                  </div> -->
+                  <div class="custom-file">
+                    <input (change)="convertBase64($event)" [(ngModel)]="profilePicture.imagePath" id="imagePath" type="file" accept="image/png, image/jpeg" formControlName="imagePath">
+                  </div>
                 <!-- </div> -->
               </div>
               <div class="row">

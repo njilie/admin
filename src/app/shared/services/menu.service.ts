@@ -13,29 +13,28 @@ import { Menu } from '../interfaces/menu';
 import { Image } from '../interfaces/image';
 
 import { handleError } from '../constants/handle-http-errors';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
-  // Cette fonction retourne un Observable
-  // Un Observable est un objet permettant de faire le “lien” entre des publishers et des subscribers
-  // Il permet d'executer le code de manière asynchrone c'est-à-dire,
-  // exemple, que la page d'un site n'attendra pas qu'une données soit chargée pour afficher les éléments du site ;
-  // elle le fera en parallèle
   getMenusForThisWeek(): Observable<Menu[]> {
+    // let token = this.auth.tokenGetter();
+    // token = token.replace('Bearer ', '');
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Authorization', token);
+
     return (
       this.http
         .get<Menu[]>(`${API_URL}/menu/findallavailablefortoday`)
-        // L'opérateur map permet de créer un nouvel Observable à partir de l'Observable d'origine
-        // Il prend les valeurs en entrée, les transforme et les renvoie en sortie
         .pipe(
           map((results) => {
-            retry(3), // retry a failed request up to 3 times
-            catchError(this.handleError); // then handle the error
+            retry(3),
+            catchError(this.handleError);
             return results;
           })
         )
