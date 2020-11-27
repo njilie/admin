@@ -28,3 +28,11 @@
 hr {
     border-top: 2px solid rgba(0,0,0,.1);
 }
+
+header {
+    margin-bottom: 35px;
+}
+
+header .message-box {
+    margin-bottom: 20px;
+}

@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { MenuService } from '../../../shared/services/menu.service';
+import { OrderService } from '../../../shared/services/order.service';
 
 import { MenuOUT } from '../../../shared/interfaces/menu';
 import { ImageOUT } from '../../../shared/interfaces/image';
+import { User /*UserOUT*/} from '../../../shared/interfaces/user';
+import { AuthService } from '../../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-meals-of-menu',
@@ -16,7 +19,11 @@ export class MealsOfMenuComponent implements OnInit {
   menuId!: number;
   menusImages!: ImageOUT[];
 
-  constructor(private menuService: MenuService, private route: ActivatedRoute) { }
+  constructor(
+    private menuService: MenuService,
+    private route: ActivatedRoute,
+    private orderService: OrderService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -29,7 +36,6 @@ export class MealsOfMenuComponent implements OnInit {
   getMenu(menuId: number): void {
     this.menuService.getMenu(menuId).subscribe(
       (menu) => {
-        console.log(menu);
         this.menu = menu;
         // this.menus.forEach((menu) => {
         //   this.menuService.getMenuImage(menu.imageId).subscribe(
@@ -46,6 +52,13 @@ export class MealsOfMenuComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  orderMaker(menuId: number): void {
+    const user: User = this.authService.userLogged();
+    if (user) {
+      this.orderService.orderMaker(user.id, 'menu', null, menuId);
+    }
   }
 
 }

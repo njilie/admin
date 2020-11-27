@@ -1,124 +1,25 @@
-
-    <!-- Avec image -->
-    <div class="row">
-      <!-- <div *ngFor="let meal of meals; let i = index" class="col-md-3">
-        <div class="services-inner-box">
-          <div class="ser-icon">
-            <img [src]="mealsImages[i].image64" class="img-fluid" alt="">
-          </div>
-          <h2>{{ meal.label }}</h2>
-          <a class="hvr-radial-in" [routerLink]="['../orders']">{{ meal.priceDF }} €</a>
-        </div>
-      </div> -->
-
-      <!-- Sans image -->
-      <div *ngFor="let meal of meals" class="col-md-3">
-        <div class="services-inner-box">
-          <div class="ser-icon">
-            <img src="../../../../assets/uploads/menu-img-02.jpg" class="img-fluid" alt="">
-          </div>
-          <h2>{{ meal.label }}</h2>
-          <a class="hvr-radial-in" (click)="makeOrder(meal.id)">{{ meal.priceDF }} €</a>
-          <!-- <a class="hvr-radial-in" [routerLink]="['../orders']">{{ meal.priceDF }} €</a> -->
-        </div>
+<!-- Avec image -->
+<div class="row">
+  <!-- <div *ngFor="let meal of meals; let i = index" class="col-md-3">
+    <div class="services-inner-box">
+      <div class="ser-icon">
+        <img [src]="mealsImages[i].image64" class="img-fluid" alt="">
       </div>
-
+      <h2>{{ meal.label }}</h2>
+      <a class="hvr-radial-in" [routerLink]="['../orders']">{{ meal.priceDF }} €</a>
     </div>
+  </div> -->
 
-<!-- <div id="meal" class="section wb">
-  <div class="container-fluid">
-    <div class="section-title text-center">
-      <h3>Plat</h3>
-      <p>Attention ! Il faut être connecté pour commander !</p>
-    </div>
-
-    <!- Avec image ->
-    <div class="row">
-      <!- <div *ngFor="let meal of meals; let i = index" class="col-md-3">
-        <div class="services-inner-box">
-          <div class="ser-icon">
-            <img [src]="mealsImages[i].image64" class="img-fluid" alt="">
-          </div>
-          <h2>{{ meal.label }}</h2>
-          <a class="hvr-radial-in" [routerLink]="['../orders']">{{ meal.priceDF }} €</a>
-        </div>
-      </div> ->
-
-      <!- Sans image ->
-      <div *ngFor="let meal of meals" class="col-md-3">
-        <div class="services-inner-box">
-          <div class="ser-icon">
-            <img src="../../../../assets/uploads/menu-img-02.jpg" class="img-fluid" alt="">
-          </div>
-          <h2>{{ meal.label }}</h2>
-          <a class="hvr-radial-in" [routerLink]="['../orders']">{{ meal.priceDF }} €</a>
-        </div>
+  <!-- Sans image -->
+  <div *ngFor="let meal of meals" class="col-md-3">
+    <div class="services-inner-box">
+      <div class="ser-icon">
+        <img src="../../../../assets/uploads/menu-img-02.jpg" class="img-fluid" alt="">
       </div>
-
+      <h2>{{ meal.label }}</h2>
+      <a class="hvr-radial-in cursor-pointer" (click)="orderMaker(meal.id)">{{ meal.priceDF }} €</a>
+      <!-- <a class="hvr-radial-in" [routerLink]="['../orders']">{{ meal.priceDF }} €</a> -->
     </div>
   </div>
-</div> -->
 
-<!-- <div class="col-md-4 col-sm-6 gallery-grid gal_b">
-    <div class="gallery-single fix">
-        <div class="services-inner-box">
-            <div class="ser-icon">
-              <img
-                src="../../../../assets/uploads/menu-img-01.jpg"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-            <h2>Vegetable Name..</h2>
-            <a class="hvr-radial-in" [routerLink]="['../orders']">$ 18.00</a>
-          </div>
-    </div>
 </div>
-
-<div class="col-md-4 col-sm-6 gallery-grid gal_b">
-    <div class="gallery-single fix">
-        <div class="services-inner-box">
-            <div class="ser-icon">
-              <img
-                src="../../../../assets/uploads/menu-img-01.jpg"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-            <h2>Vegetable Name..</h2>
-            <a class="hvr-radial-in" [routerLink]="['../orders']">$ 18.00</a>
-          </div>
-    </div>
-</div>
-
-<div class="col-md-4 col-sm-6 gallery-grid gal_b">
-    <div class="gallery-single fix">
-        <div class="services-inner-box">
-            <div class="ser-icon">
-              <img
-                src="../../../../assets/uploads/menu-img-01.jpg"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-            <h2>Vegetable Name..</h2>
-            <a class="hvr-radial-in" [routerLink]="['../orders']">$ 18.00</a>
-          </div>
-    </div>
-</div>
-
-<div class="col-md-4 col-sm-6 gallery-grid gal_b">
-    <div class="gallery-single fix">
-        <div class="services-inner-box">
-            <div class="ser-icon">
-              <img
-                src="../../../../assets/uploads/menu-img-01.jpg"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-            <h2>Vegetable Name..</h2>
-            <a class="hvr-radial-in" [routerLink]="['../orders']">$ 18.00</a>
-          </div>
-    </div>
-</div> -->

@@ -54,6 +54,7 @@ export class OrdersComponent implements OnInit {
           // this.imageMenu(order.quantity);
           // this.imageMeal(order.quantity);
         });
+        this.orderService.computePrice(this.orders[0].id, 2).subscribe((data) => {console.log(data); });
       },
       (error) => {
         console.log(error);

@@ -17,3 +17,9 @@ export interface OrderIN {
     constraintId: number;
     quantity: QuantityIN[];
 }
+
+export interface PriceOUT {
+    priceDF: number;
+    priceVAT: number;
+    rateVAT: number;
+}

@@ -44,3 +44,7 @@ header .sim-btn {
 .order-number-container {
     margin-bottom: 35px;
 }
+
+.menu-description-container p:first-child {
+    margin-bottom: 0;
+}

@@ -8,8 +8,8 @@ import { ConstraintService } from '../../../shared/services/constraint.service';
 import { MealOUT } from '../../../shared/interfaces/meal';
 import { ImageOUT } from '../../../shared/interfaces/image';
 import { OrderIN } from '../../../shared/interfaces/order';
-import { QuantityIN } from '../../../shared/interfaces/quantity';
-import { User /*UserOUT*/ } from '../../../shared/interfaces/user';
+import { QuantityIN, QuantityOUT } from '../../../shared/interfaces/quantity';
+import { User /*UserOUT*/} from '../../../shared/interfaces/user';
 
 @Component({
   selector: 'app-meals',
@@ -18,19 +18,15 @@ import { User /*UserOUT*/ } from '../../../shared/interfaces/user';
 })
 export class MealsComponent implements OnInit {
 
-  user: User /*UserOUT*/;
   meals!: MealOUT[];
   mealsImages: ImageOUT[] = [];
 
   constructor(
     private mealService: MealService,
-    private oderService: OrderService,
-    private authService: AuthService
-    /*private constraintService: ConstraintService*/) {}
+    private orderService: OrderService,
+    private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.user = this.authService.userLogged();
-
     this.getMealsForThisWeek();
   }
 
@@ -55,71 +51,10 @@ export class MealsComponent implements OnInit {
     );
   }
 
-  addToOrder(orderToUpdateId: number, quantity: QuantityIN[], mealId: number): void {
-    const newQuantity: QuantityIN = {
-      quantity: 1, // Dans la finalité nombre choisi par le User
-      mealId
-    };
-
-    quantity.push(newQuantity);
-
-    const updatedContent = {
-      userId: this.user.id,
-      constraintId: 2,
-      quantity
-    };
-
-    this.oderService.update(orderToUpdateId, updatedContent).subscribe(
-      (data) => {console.log(data); },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  createOrder(mealId: number): void {
-    // this.constraintService.constraint(1).subscribe(
-    //   (constraint) => {
-
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
-
-    const quantity: QuantityIN = {
-      quantity: 1, // Dans la finalité nombre choisi par le User
-      mealId
-    };
-
-    const order: OrderIN = {
-      userId: this.user.id,
-      constraintId: 2,
-      quantity: [quantity],
-    };
-
-    this.oderService.add(order).subscribe(
-      () => {},
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  makeOrder(mealId: number): void {
-    if (this.user) {
-      this.oderService.getOngoingOrdersOfUser(this.user.id).subscribe(
-        (order) => {
-          if (order) {
-            this.addToOrder(order[0].id, order[0].quantity, mealId);
-          } else {
-            this.createOrder(mealId);
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+  orderMaker(mealId: number): void {
+    const user: User = this.authService.userLogged();
+    if (user) {
+      this.orderService.orderMaker(user.id, 'meal', mealId);
     }
   }
 

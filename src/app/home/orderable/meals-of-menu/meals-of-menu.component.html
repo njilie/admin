@@ -1,5 +1,13 @@
 <div class="section lb">
-  <div class="container-fluid">
+  <div *ngIf="menu" class="container-fluid">
+    <header>
+      <div class="message-box">
+        <h2>Menu: {{ menu.label }}</h2>
+      </div>
+      <button (click)="orderMaker(menu.id)" class="sim-btn hvr-radial-in cursor-pointer">
+        Ajouter au panier
+      </button>
+    </header>
     <div *ngFor="let meal of menu.meals">
       <div class="row">
         <div class="col-md-8">
@@ -13,9 +21,9 @@
             <button class="sim-btn hvr-radial-in">Aujoud'hui {{ available }}</button>
           </div> -->
   
-          <button [routerLink]="['../desserts']" class="sim-btn hvr-radial-in">
+          <!-- <button [routerLink]="['../desserts']" class="sim-btn hvr-radial-in">
             Choisir
-          </button>
+          </button> -->
         </div>
         <div class="col-md-3">
           <div class="services-inner-box">

@@ -1,14 +1,22 @@
 <div class="section lb">
   <div class="container-fluid">
     <header>
-      <button *ngIf="allOrdersUrl; else allMenusBtn" [routerLink]="['../']" class="sim-btn hvr-radial-in">
-        Mes commandes en cours
-      </button>
-      <ng-template #allMenusBtn>
-        <button [routerLink]="['all']" class="sim-btn hvr-radial-in">
-          Toutes mes commandes
-        </button>
-      </ng-template>
+      <div class="row">
+        <div class="col-lg-10">
+          <button *ngIf="allOrdersUrl; else allMenusBtn" [routerLink]="['../']" class="sim-btn hvr-radial-in">
+            Mes commandes en cours
+          </button>
+          <ng-template #allMenusBtn>
+            <button [routerLink]="['all']" class="sim-btn hvr-radial-in">
+              Toutes mes commandes
+            </button>
+          </ng-template>
+        </div>
+
+        <div class="col-lg-2">
+          <button *ngIf="orders[0].status === 0" class="sim-btn hvr-radial-in">Commander</button>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-md-7">
@@ -35,7 +43,7 @@
       <div *ngFor="let quantity of order.quantity">
         <div class="row" *ngIf="quantity.menu">
           <div class="col-md-8">
-            <div class="message-box">
+            <div class="message-box menu-description-container">
               <h2>Menu: {{ quantity.menu.label }}</h2>
               <div *ngFor="let meal of quantity.menu.meals">
                 <p>Plat : {{ meal.label }}</p>
@@ -43,7 +51,7 @@
               </div>
             </div>
 
-            <button class="sim-btn hvr-radial-in">Commander</button>
+            <!-- <button *ngIf="order.status === 0" class="sim-btn hvr-radial-in">Commander</button> -->
           </div>
           <div class="col-md-3">
             <div class="services-inner-box">
@@ -72,7 +80,7 @@
               <p>Prix: <span class="text-important">{{ quantity.meal.priceDF }} €</span></p>
             </div>
     
-            <button class="sim-btn hvr-radial-in">Commander</button>
+            <!-- <button *ngIf="order.status === 0" class="sim-btn hvr-radial-in">Commander</button> -->
           </div>
           <div class="col-md-3">
             <div class="services-inner-box">
@@ -89,59 +97,5 @@
         <hr />
       </div>
     </div>
-
-    <!-- <div class="row">
-      <div class="col-md-8">
-        <div class="message-box">
-          <h2>Menu: Hueco Mundo</h2>
-          <p>Plat : Resureccion</p>
-          <p>Dessert: Tiramisu</p>
-          <p>Prix: <span class="text-important">11.50 €</span></p>
-        </div>
-
-        <button class="sim-btn hvr-radial-in">Commander</button>
-      </div>
-      <div class="col-md-3">
-        <div class="services-inner-box">
-          <div class="ser-icon">
-            <img
-              src="../../../../assets/uploads/gallery_img-01.jpg"
-              class="img-fluid"
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr />
-
-    <div class="row">
-      <div class="col-md-8">
-        <div class="message-box">
-          <h2>Plat: Resureccion</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-            magna magna, ornare gravida neque at, bibendum sagittis turpis.
-            Aenean rutrum magna vitae massa vehicula congue. Nullam vitae metus
-            id dolor pharetra lobortis in eu massa.
-          </p>
-          <p>Prix: <span class="text-important">4.00 €</span></p>
-        </div>
-
-        <button class="sim-btn hvr-radial-in">Commander</button>
-      </div>
-      <div class="col-md-3">
-        <div class="services-inner-box">
-          <div class="ser-icon">
-            <img
-              src="../../../../assets/uploads/menu-img-01.jpg"
-              class="img-fluid"
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr /> -->
   </div>
 </div>
