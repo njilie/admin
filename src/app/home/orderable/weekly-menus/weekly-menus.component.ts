@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../../shared/services/menu.service';
-import { Menu } from '../../../shared/interfaces/menu';
-import { Image } from '../../../shared/interfaces/image';
+import { MenuOUT } from '../../../shared/interfaces/menu';
+import { ImageOUT } from '../../../shared/interfaces/image';
 
 @Component({
   selector: 'app-weekly-menus',
@@ -10,8 +10,8 @@ import { Image } from '../../../shared/interfaces/image';
 })
 export class WeeklyMenusComponent implements OnInit {
 
-  menus!: Menu[];
-  menusImages: Image[] = [];
+  menus!: MenuOUT[];
+  menusImages: ImageOUT[] = [];
 
   constructor(private menuService: MenuService) {}
 

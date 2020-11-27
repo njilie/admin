@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MenuService } from 'src/app/shared/services/menu.service';
-import { Menu } from 'src/app/shared/interfaces/menu';
-import { Image } from 'src/app/shared/interfaces/image';
+
+import { MenuService } from '../../../shared/services/menu.service';
+
+import { MenuOUT } from '../../../shared/interfaces/menu';
+import { ImageOUT } from '../../../shared/interfaces/image';
 
 @Component({
   selector: 'app-meals-of-menu',
@@ -10,9 +12,9 @@ import { Image } from 'src/app/shared/interfaces/image';
   styleUrls: ['./meals-of-menu.component.css']
 })
 export class MealsOfMenuComponent implements OnInit {
-  menu!: Menu;
+  menu!: MenuOUT;
   menuId!: number;
-  menusImages!: Image[];
+  menusImages!: ImageOUT[];
 
   constructor(private menuService: MenuService, private route: ActivatedRoute) { }
 

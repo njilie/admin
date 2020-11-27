@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { AuthService } from '../shared/auth/auth.service';
 import { MealService } from '../shared/services/meal.service';
 import { MenuService } from '../shared/services/menu.service';
 import { OrderService } from '../shared/services/order.service';
-import { User } from '../shared/interfaces/user';
-import { Order } from '../shared/interfaces/order';
-import { Quantity } from '../shared/interfaces/quantity';
-import { Image } from '../shared/interfaces/image';
-import { AuthService } from '../shared/auth/auth.service';
-import { ActivatedRoute } from '@angular/router';
+
+import { User /*UserOUT*/ } from '../shared/interfaces/user';
+import { OrderOUT } from '../shared/interfaces/order';
+import { QuantityOUT } from '../shared/interfaces/quantity';
+import { ImageOUT } from '../shared/interfaces/image';
 
 @Component({
   selector: 'app-orders',
@@ -17,10 +19,10 @@ import { ActivatedRoute } from '@angular/router';
 export class OrdersComponent implements OnInit {
 
   allOrdersUrl: string;
-  user: User;
-  orders: Order[];
-  menusImages: Image[] = [];
-  mealsImages: Image[] = [];
+  user: User /*UserOUT*/;
+  orders: OrderOUT[];
+  menusImages: ImageOUT[] = [];
+  mealsImages: ImageOUT[] = [];
 
   constructor(
     private auth: AuthService,
@@ -74,7 +76,7 @@ export class OrdersComponent implements OnInit {
     );
   }
 
-  imageMenu(quantities: Quantity[]): void {
+  imageMenu(quantities: QuantityOUT[]): void {
     quantities.forEach((quantity) => {
       this.menuService.getMenuImage(quantity.menu.imageId).subscribe(
         (image) => {
@@ -87,7 +89,7 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  imageMeal(quantities: Quantity[]): void {
+  imageMeal(quantities: QuantityOUT[]): void {
     quantities.forEach((quantity) => {
       this.mealService.getMealImage(quantity.meal.imageId).subscribe(
         (image) => {

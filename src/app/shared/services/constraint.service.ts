@@ -10,7 +10,7 @@ import { map, catchError, retry } from 'rxjs/operators';
 import { API_URL } from '../constants/api-url';
 
 import { handleError } from '../constants/handle-http-errors';
-import { Constraint } from '../interfaces/constraint';
+import { ConstraintOUT, ConstraintIN } from '../interfaces/constraint';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +19,10 @@ export class ConstraintService {
 
   constructor(private http: HttpClient) { }
 
-  getAllConstraints(): Observable<Constraint[]> {
+  constraints(): Observable<ConstraintOUT[]> {
     return (
       this.http
-        .get<Constraint[]>(`${API_URL}/constraint/findall`)
+        .get<ConstraintOUT[]>(`${API_URL}/constraint/findall`)
         .pipe(
           map((results) => {
             retry(3),
@@ -33,10 +33,25 @@ export class ConstraintService {
     );
   }
 
-  getConstraint(constraintId: number): Observable<Constraint> {
+  constraint(constraintId: number): Observable<ConstraintOUT> {
     return (
       this.http
-        .get<Constraint>(`${API_URL}/constraint/find/${constraintId}`)
+        .get<ConstraintOUT>(`${API_URL}/constraint/find/${constraintId}`)
+        .pipe(
+          map((results) => {
+            retry(3),
+            catchError(this.handleError);
+            return results;
+          })
+        )
+    );
+  }
+
+  update(id: number, constraint: ConstraintIN): Observable<ConstraintOUT> {
+    console.log(constraint);
+    return (
+      this.http
+        .patch<ConstraintOUT>(`${API_URL}/constraint/update/${id}`, constraint)
         .pipe(
           map((results) => {
             retry(3),

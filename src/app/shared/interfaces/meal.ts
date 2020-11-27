@@ -1,11 +1,24 @@
-import { Ingredient } from './ingredient';
+import { ImageIN } from './image';
+import { IngredientOUT } from './ingredient';
 
-export interface Meal {
+export interface MealOUT {
     id: number;
+    description: string;
     label: string;
     priceDF: number;
     status: number;
     imageId: number;
     availableForWeeks: number[];
-    ingredients: Ingredient[];
+    category: number;
+    ingredients: IngredientOUT[];
+}
+
+export interface MealIN {
+    description?: string;
+    label: string;
+    image?: ImageIN;
+    priceDF: number;
+    availableForWeeks?: number[];
+    ingredientsId?: number[];
+    category: number;
 }

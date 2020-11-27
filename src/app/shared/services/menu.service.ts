@@ -9,8 +9,8 @@ import { map, catchError, retry } from 'rxjs/operators';
 
 import { API_URL } from '../constants/api-url';
 
-import { Menu } from '../interfaces/menu';
-import { Image } from '../interfaces/image';
+import { MenuOUT } from '../interfaces/menu';
+import { ImageOUT } from '../interfaces/image';
 
 import { handleError } from '../constants/handle-http-errors';
 import { AuthService } from '../auth/auth.service';
@@ -22,15 +22,10 @@ export class MenuService {
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
-  getMenusForThisWeek(): Observable<Menu[]> {
-    // let token = this.auth.tokenGetter();
-    // token = token.replace('Bearer ', '');
-    // let headers = new HttpHeaders();
-    // headers = headers.set('Authorization', token);
-
+  getMenusForThisWeek(): Observable<MenuOUT[]> {
     return (
       this.http
-        .get<Menu[]>(`${API_URL}/menu/findallavailablefortoday`)
+        .get<MenuOUT[]>(`${API_URL}/menu/findallavailablefortoday`)
         .pipe(
           map((results) => {
             retry(3),
@@ -41,10 +36,10 @@ export class MenuService {
     );
   }
 
-  getMenu(menuId: number): Observable<Menu> {
+  getMenu(menuId: number): Observable<MenuOUT> {
     return (
       this.http
-        .get<Menu>(`${API_URL}/menu/find/${menuId}`)
+        .get<MenuOUT>(`${API_URL}/menu/find/${menuId}`)
         .pipe(
           map((results) => {
             retry(3),
@@ -55,10 +50,10 @@ export class MenuService {
     );
   }
 
-  getMenuImage(menuId: number): Observable<Image> {
+  getMenuImage(menuId: number): Observable<ImageOUT> {
     return (
       this.http
-        .get<Image>(`${API_URL}/menu/findimg/${menuId}`)
+        .get<ImageOUT>(`${API_URL}/menu/findimg/${menuId}`)
         .pipe(
           map((results) => {
             retry(3),

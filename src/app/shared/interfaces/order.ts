@@ -1,11 +1,19 @@
-import { Quantity } from './quantity';
-import { User } from './user';
+import { QuantityIN, QuantityOUT } from './quantity';
+import { User /*UserOUT*/ } from './user';
 
-export interface Order {
+export interface OrderOUT {
     id: number;
     creationDate: Date; // string
     creationTime: number;
-    user: User;
-    quantity: Quantity[];
-    constraintId?: number;
+    status: number;
+    user: User /*UserOUT*/;
+    userId: number;
+    quantity: QuantityOUT[];
+    constraintId: number;
+}
+
+export interface OrderIN {
+    userId: number;
+    constraintId: number;
+    quantity: QuantityIN[];
 }

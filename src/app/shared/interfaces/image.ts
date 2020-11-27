@@ -1,7 +1,11 @@
-export interface Image {
+export interface ImageOUT {
     id: number;
     imagePath: string;
     image64: string;
-    imageBin: Blob;
     default: boolean;
+}
+
+export interface ImageIN {
+    imagePath: string;
+    image64: string;
 }

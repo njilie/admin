@@ -1,11 +1,15 @@
-import { Meal } from './meal';
-import { Menu } from './menu';
+import { MealOUT } from './meal';
+import { MenuOUT } from './menu';
 
-export interface Quantity {
-    id: number;
+export interface QuantityOUT {
+    id?: number;
     quantity: number;
-    meal: Meal;
+    meal?: MealOUT;
+    menu?: MenuOUT;
+}
+
+export interface QuantityIN {
+    quantity?: number;
     mealId?: number;
-    menu: Menu;
     menuId?: number;
 }

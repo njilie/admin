@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { AuthService } from '../shared/auth/auth.service';
 import { UserService } from '../shared/services/user.service';
-import { User } from '../shared/interfaces/user';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Image } from '../shared/interfaces/image';
+
+import { User /*UserOUT, UserIN*/ } from '../shared/interfaces/user';
+import { ImageOUT } from '../shared/interfaces/image';
 
 @Component({
   selector: 'app-profile',
@@ -11,8 +13,8 @@ import { Image } from '../shared/interfaces/image';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  user: User;
-  profilePicture: Image;
+  user: User /*UserOUT*/;
+  profilePicture: ImageOUT;
   registrationDate: number[];
   form: FormGroup;
 

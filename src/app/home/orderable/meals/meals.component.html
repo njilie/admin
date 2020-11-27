@@ -18,7 +18,8 @@
             <img src="../../../../assets/uploads/menu-img-02.jpg" class="img-fluid" alt="">
           </div>
           <h2>{{ meal.label }}</h2>
-          <a class="hvr-radial-in" [routerLink]="['../orders']">{{ meal.priceDF }} €</a>
+          <a class="hvr-radial-in" (click)="makeOrder(meal.id)">{{ meal.priceDF }} €</a>
+          <!-- <a class="hvr-radial-in" [routerLink]="['../orders']">{{ meal.priceDF }} €</a> -->
         </div>
       </div>
 

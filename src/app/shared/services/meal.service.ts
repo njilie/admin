@@ -11,8 +11,8 @@ import { API_URL } from '../constants/api-url';
 
 import { handleError } from '../constants/handle-http-errors';
 
-import { Meal } from '../interfaces/meal';
-import { Image } from '../interfaces/image';
+import { MealOUT } from '../interfaces/meal';
+import { ImageOUT } from '../interfaces/image';
 
 @Injectable({
   providedIn: 'root'
@@ -21,31 +21,10 @@ export class MealService {
 
   constructor(private http: HttpClient) {}
 
-  // Cette fonction retourne un Observable
-  // Un Observable est un objet permettant de faire le “lien” entre des publishers et des subscribers
-  // Il permet d'executer le code de manière asynchrone c'est-à-dire,
-  // exemple, que la page d'un site n'attendra pas qu'une données soit chargée pour afficher les éléments du site ;
-  // elle le fera en parallèle
-  getMealsForThisWeek(): Observable<Meal[]> {
+  getMealsForThisWeek(): Observable<MealOUT[]> {
     return (
       this.http
-        .get<Meal[]>(`${API_URL}/meal/findallavailablefortoday`)
-        // L'opérateur map permet de créer un nouvel Observable à partir de l'Observable d'origine
-        // Il prend les valeurs en entrée, les transforme et les renvoie en sortie
-        .pipe(
-          map((results) => {
-            retry(3), // retry a failed request up to 3 times
-            catchError(this.handleError); // then handle the error
-            return results;
-          })
-        )
-    );
-  }
-
-  getMeal(mealId: number): Observable<Meal> {
-    return (
-      this.http
-        .get<Meal>(`${API_URL}/meal/find/${mealId}`)
+        .get<MealOUT[]>(`${API_URL}/meal/findallavailablefortoday`)
         .pipe(
           map((results) => {
             retry(3),
@@ -56,10 +35,24 @@ export class MealService {
     );
   }
 
-  getMealImage(mealId: number): Observable<Image> {
+  getMeal(mealId: number): Observable<MealOUT> {
     return (
       this.http
-        .get<Image>(`${API_URL}/meal/findimg/${mealId}`)
+        .get<MealOUT>(`${API_URL}/meal/find/${mealId}`)
+        .pipe(
+          map((results) => {
+            retry(3),
+            catchError(this.handleError);
+            return results;
+          })
+        )
+    );
+  }
+
+  getMealImage(mealId: number): Observable<ImageOUT> {
+    return (
+      this.http
+        .get<ImageOUT>(`${API_URL}/meal/findimg/${mealId}`)
         .pipe(
           map((results) => {
             retry(3),

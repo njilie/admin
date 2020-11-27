@@ -9,8 +9,8 @@ import { map, catchError, retry } from 'rxjs/operators';
 
 import { API_URL } from '../constants/api-url';
 
-import { User } from '../interfaces/user';
-import { Image } from '../interfaces/image';
+import { User /*UserOUT, UserIN*/ } from '../interfaces/user';
+import { ImageOUT, ImageIN } from '../interfaces/image';
 
 import { handleError } from '../constants/handle-http-errors';
 
@@ -21,7 +21,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  user(userId: number): Observable<User> {
+  user(userId: number): Observable<User> { /*UserOUT*/
     return (
       this.http
         .get<User>(`${API_URL}/user/find/${userId}`)
@@ -36,7 +36,7 @@ export class UserService {
     );
   }
 
-  update(userId: number, user: User): Observable<User> {
+  update(userId: number, user: User /*UserIN*/): Observable<User> { /*UserOUT*/
     return (
       this.http
         .patch<User>(`${API_URL}/user/update/${userId}`, user)
@@ -50,10 +50,10 @@ export class UserService {
     );
   }
 
-  userImage(userId: number): Observable<Image> {
+  userImage(userId: number): Observable<ImageOUT> {
     return (
       this.http
-        .get<Image>(`${API_URL}/user/findimg/${userId}`)
+        .get<ImageOUT>(`${API_URL}/user/findimg/${userId}`)
         .pipe(
           map((results) => {
             retry(3),
@@ -64,11 +64,11 @@ export class UserService {
     );
   }
 
-  updateImage(userId: number, image: Image): any {
+  updateImage(userId: number, image: ImageIN): any {
     console.log(image);
     return (
       this.http
-        .patch<User>(`${API_URL}/user/updateimg/${userId}`, image)
+        .patch<any>(`${API_URL}/user/updateimg/${userId}`, image)
         .pipe(
           map((results) => {
             retry(3),

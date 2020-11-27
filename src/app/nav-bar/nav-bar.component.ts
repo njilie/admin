@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
 import { AuthService } from '../shared/auth/auth.service';
 import { UserService } from '../shared/services/user.service';
-import { User } from '../shared/interfaces/user';
-import { Image } from '../shared/interfaces/image';
+
+import { User /*UserOUT*/ } from '../shared/interfaces/user';
+import { ImageOUT } from '../shared/interfaces/image';
 
 declare let $: any;
 
@@ -13,8 +15,8 @@ declare let $: any;
 })
 export class NavBarComponent implements OnInit {
 
-  user: User;
-  profilePicture: Image;
+  user: User /*UserOUT*/;
+  profilePicture: ImageOUT;
   authenticated: boolean;
 
   constructor(public authService: AuthService, private userService: UserService) {}

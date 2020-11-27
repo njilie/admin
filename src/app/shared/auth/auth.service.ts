@@ -9,7 +9,7 @@ import {
 import { map, retry, catchError } from 'rxjs/operators';
 import { API_URL } from '../constants/api-url';
 import { Observable, throwError } from 'rxjs';
-import { User } from '../interfaces/user';
+import { User /*UserOUT*/ } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -93,7 +93,7 @@ export class AuthService {
     return throwError('Something bad happened; please try again later.');
   }
 
-  public userLogged(): User {
+  public userLogged(): User /*UserOUT*/ {
     const token = this.tokenDecoded();
     const user = token.user;
     return user;
