@@ -128,15 +128,14 @@ export class OrderService {
     );
   }
 
-  computePrice(orderId: number, constrainId: number): Observable<PriceOUT[]> {
+  computePrice(orderId: number, constrainId: number): Observable<PriceOUT> {
     return (
       this.http
-        .get<PriceOUT[]>(`${API_URL}/order/computeprice/${orderId}/${constrainId}`)
+        .get<PriceOUT>(`${API_URL}/order/computeprice/${orderId}/${constrainId}`)
         .pipe(
           map((results) => {
             retry(3),
             catchError(this.handleError);
-            console.log(results);
             return results;
           })
         )

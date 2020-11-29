@@ -14,18 +14,21 @@
         </div>
 
         <div class="col-lg-2">
-          <button *ngIf="orders[0].status === 0" class="sim-btn hvr-radial-in">Commander</button>
+          <button *ngIf="orders && orders[0].status === 0" (click)="makeOrder(orders[0].id)"
+          class="sim-btn hvr-radial-in">
+            Commander
+          </button>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-8">
           <div class="message-box">
             <h2>Mon panier</h2>
           </div>
         </div>
 
-        <div class="col-md-5">
+        <div class="col-md-4">
           <div class="message-box">
             <h2>
               Argent restant : <span class="text-important">{{ user.wallet }} €</span>
@@ -35,9 +38,17 @@
       </div>
     </header>
 
-    <div *ngFor="let order of orders">
-      <div class="message-box order-number-container">
-        <h2>Commande n° {{ order.id }}</h2>
+    <div *ngFor="let order of orders; let i = index">
+      <div class="row message-box order-number-container">
+        <div class="col-md-8">
+          <h2>Commande n° {{ order.id }}</h2>
+        </div>
+        <div *ngIf="totalsPrices[i]" class="col-md-3">
+          <h2>
+            Prix total TTC de la commande: 
+            <span class="text-important">{{ totalsPrices[i].priceVAT | number:'1.1-2' }} €</span>
+          </h2>
+        </div>
       </div>
 
       <div *ngFor="let quantity of order.quantity">

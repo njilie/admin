@@ -7,9 +7,10 @@ import { MenuService } from '../shared/services/menu.service';
 import { OrderService } from '../shared/services/order.service';
 
 import { User /*UserOUT*/ } from '../shared/interfaces/user';
-import { OrderOUT } from '../shared/interfaces/order';
+import { OrderOUT, PriceOUT } from '../shared/interfaces/order';
 import { QuantityOUT } from '../shared/interfaces/quantity';
 import { ImageOUT } from '../shared/interfaces/image';
+import { ConstraintService } from '../shared/services/constraint.service';
 
 @Component({
   selector: 'app-orders',
@@ -23,18 +24,27 @@ export class OrdersComponent implements OnInit {
   orders: OrderOUT[];
   menusImages: ImageOUT[] = [];
   mealsImages: ImageOUT[] = [];
+  totalsPrices: PriceOUT[] = [];
+  maximumOrderPerDay: number;
 
   constructor(
     private auth: AuthService,
     private orderService: OrderService,
     private menuService: MenuService,
     private mealService: MealService,
+    private constraintService: ConstraintService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.allOrdersUrl = this.route.snapshot.paramMap.get('all');
 
-    this.user = this.auth.userLogged();
+    if (localStorage.getItem('userChangedValues')) {
+      this.user = JSON. parse(localStorage.getItem('userChangedValues'));
+    }
+    else {
+      this.user = this.auth.userLogged();
+    }
+
     if (this.user) {
       if (this.allOrdersUrl) {
         this.getAllOrdersOfUser(this.user.id);
@@ -49,12 +59,14 @@ export class OrdersComponent implements OnInit {
   getOngoingOrdersOfUser(userId: number): void {
     this.orderService.getOngoingOrdersOfUser(userId).subscribe(
       (orders) => {
-        this.orders = orders; console.log(this.orders);
+        this.orders = orders;
+
         this.orders.forEach((order) => {
           // this.imageMenu(order.quantity);
           // this.imageMeal(order.quantity);
         });
-        this.orderService.computePrice(this.orders[0].id, 2).subscribe((data) => {console.log(data); });
+
+        this.computePrice(this.orders[0].id, 2);
       },
       (error) => {
         console.log(error);
@@ -65,10 +77,11 @@ export class OrdersComponent implements OnInit {
   getAllOrdersOfUser(userId: number): void {
     this.orderService.getAllOrdersOfUser(userId).subscribe(
       (orders) => {
-        this.orders = orders; console.log(this.orders);
+        this.orders = orders;
         this.orders.forEach((order) => {
           // this.imageMenu(order.quantity);
           // this.imageMeal(order.quantity);
+          this.computePrice(order.id, 2);
         });
       },
       (error) => {
@@ -101,6 +114,64 @@ export class OrdersComponent implements OnInit {
         }
       );
     });
+  }
+
+  computePrice(ongoingOrderId: number, constraintId: number): void {
+    this.orderService.computePrice(ongoingOrderId, constraintId).subscribe(
+      (totalPrice) => {
+        this.totalsPrices.push(totalPrice);
+      },
+      (error) => {
+        console.log(error);
+      });
+  }
+
+  makeOrder(ongoingOrderId: number): void {
+    if (this.orders && this.totalsPrices) {
+
+      if (confirm('Etes-vous sûr de vouloir payer cette commande')) {
+
+        if (this.user.wallet < this.totalsPrices[0].priceVAT) {
+
+          this.constraintService.constraint(1).subscribe(
+            (constraint) => {
+              this.maximumOrderPerDay = constraint.maximumOrderPerDay;
+
+              if (this.maximumOrderPerDay > 0) {
+
+                this.orderService.makeOrder(ongoingOrderId, 1).subscribe(
+                  () => {
+
+                  },
+                  (error) => {
+                    console.log(error);
+                  });
+
+              } else {
+                alert('Trop de commandes aujourd\'hui, il faut attendre demain');
+              }
+            },
+            (error) => {
+              console.log(error);
+            });
+
+        } else {
+          alert('Vous n\'avez pas assez d\'argent sur votre compte, veuillez donner assez d\'argent à la cantinière');
+        }
+
+      }
+
+    }
+  }
+
+  getConstraint(): void {
+    this.constraintService.constraint(1).subscribe(
+      (constraint) => {
+        this.maximumOrderPerDay = constraint.maximumOrderPerDay;
+      },
+      (error) => {
+        console.log(error);
+      });
   }
 
 }
