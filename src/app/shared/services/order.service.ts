@@ -13,12 +13,15 @@ import { API_URL } from '../constants/api-url';
 import { handleError } from '../constants/handle-http-errors';
 import { OrderOUT, OrderIN, PriceOUT } from '../interfaces/order';
 import { QuantityIN, QuantityOUT } from '../interfaces/quantity';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {}
 
   getTodayOrdersOfUser(userId: number): Observable<OrderOUT[]> {
     return (
@@ -39,7 +42,7 @@ export class OrderService {
     let params = new HttpParams();
 
     // Begin assigning parameters
-    params = params.append('status', '0'); // status 1 (CREATED)
+    params = params.append('status', '0'); // status 0 (CREATED)
 
     return (
       this.http
@@ -55,12 +58,12 @@ export class OrderService {
   }
 
   getAllOrdersOfUser(userId: number): Observable<OrderOUT[]> {
-    // let params = new HttpParams();
-    // params = params.append('status', '1');
+    let params = new HttpParams();
+    params = params.append('status', '1'); // status 1 (DELIVERED)
 
     return (
       this.http
-        .get<OrderOUT[]>(`${API_URL}/order/findallforuser/${userId}`)
+        .get<OrderOUT[]>(`${API_URL}/order/findallforuser/${userId}`, { params })
         .pipe(
           map((results) => {
             retry(3),
@@ -202,11 +205,23 @@ export class OrderService {
       () => {
         if (type === 'menu')
         {
-          alert(`Menu ajouté au panier`);
+          const snackBarRef = this.snackBar.open(`Menu ajouté au panier`, '', {
+            duration: 2000,
+            verticalPosition: 'bottom'
+          });
+          snackBarRef.afterDismissed().subscribe(() => {
+            this.router.navigate(['orders']);
+          });
         }
         else if (type === 'meal')
         {
-          alert(`Plat ajouté au panier`);
+          const snackBarRef = this.snackBar.open(`Plat ajouté au panier`, '', {
+            duration: 2000,
+            verticalPosition: 'bottom'
+          });
+          snackBarRef.afterDismissed().subscribe(() => {
+            this.router.navigate(['orders']);
+          });
         }
       },
       (error) => {
@@ -235,11 +250,23 @@ export class OrderService {
       () => {
         if (type === 'menu')
         {
-          alert(`Menu ajouté au panier`);
+          const snackBarRef = this.snackBar.open(`Menu ajouté au panier`, '', {
+            duration: 2000,
+            verticalPosition: 'bottom'
+          });
+          snackBarRef.afterDismissed().subscribe(() => {
+            this.router.navigate(['orders']);
+          });
         }
         else if (type === 'meal')
         {
-          alert(`Plat ajouté au panier`);
+          const snackBarRef = this.snackBar.open(`Plat ajouté au panier`, '', {
+            duration: 2000,
+            verticalPosition: 'bottom'
+          });
+          snackBarRef.afterDismissed().subscribe(() => {
+            this.router.navigate(['orders']);
+          });
         }
       },
       (error) => {

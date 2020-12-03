@@ -12,6 +12,7 @@ export class WeeklyMenusComponent implements OnInit {
 
   menus!: MenuOUT[];
   menusImages: ImageOUT[] = [];
+  loading!: boolean;
 
   constructor(private menuService: MenuService) {}
 
@@ -20,9 +21,12 @@ export class WeeklyMenusComponent implements OnInit {
   }
 
   getMenusForThisWeek(): void {
+    this.loading = true;
+
     this.menuService.getMenusForThisWeek().subscribe(
       (menus) => {
         this.menus = menus;
+        this.loading = false;
         // this.menus.forEach((menu) => {
         //   this.menuService.getMenuImage(menu.imageId).subscribe(
         //     (image) => {

@@ -181,8 +181,36 @@ ol {
   cursor: pointer;
 }
 
+.m-t-10 {
+  margin-top: 10px;
+}
+
+.m-b-15 {
+  margin-bottom: 15px;
+}
+
 .m-r-10 {
   margin-right: 10px;
+}
+
+.p-l-0 {
+  padding-left: 0;
+}
+
+.spinner-container {
+  padding-left: 45%;
+}
+
+@media screen and (max-width: 415px) {
+  .spinner-container {
+    padding-left: 40%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .spinner-container {
+    padding-left: 50%;
+  }
 }
 
 /*------------------------------------------------------------------

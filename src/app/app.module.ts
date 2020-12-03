@@ -36,6 +36,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatMenuModule,
     MatCardModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
   providers: [
     AuthService,

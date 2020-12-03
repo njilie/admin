@@ -20,6 +20,7 @@ export class MealsComponent implements OnInit {
 
   meals!: MealOUT[];
   mealsImages: ImageOUT[] = [];
+  loading!: boolean;
 
   constructor(
     private mealService: MealService,
@@ -27,6 +28,7 @@ export class MealsComponent implements OnInit {
     private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.getMealsForThisWeek();
   }
 
@@ -34,6 +36,7 @@ export class MealsComponent implements OnInit {
     this.mealService.getMealsForThisWeek().subscribe(
       (meals) => {
         this.meals = meals;
+        this.loading = false;
         // this.meals.forEach((meal) => {
         //   this.mealService.getMealImage(meal.imageId).subscribe(
         //     (image) => {
@@ -52,9 +55,14 @@ export class MealsComponent implements OnInit {
   }
 
   orderMaker(mealId: number): void {
-    const user: User = this.authService.userLogged();
-    if (user) {
-      this.orderService.orderMaker(user.id, 'meal', mealId);
+    if (confirm('Etes-vous sûr de vouloir ajouter ce plat au panier ?')) {
+
+      this.loading = true;
+      const user: User = this.authService.userLogged();
+      if (user) {
+        this.orderService.orderMaker(user.id, 'meal', mealId);
+      }
+
     }
   }
 

@@ -18,6 +18,7 @@ export class MealsOfMenuComponent implements OnInit {
   menu!: MenuOUT;
   menuId!: number;
   menusImages!: ImageOUT[];
+  loading!: boolean;
 
   constructor(
     private menuService: MenuService,
@@ -34,9 +35,12 @@ export class MealsOfMenuComponent implements OnInit {
   }
 
   getMenu(menuId: number): void {
+    this.loading = true;
+
     this.menuService.getMenu(menuId).subscribe(
       (menu) => {
         this.menu = menu;
+        this.loading = false;
         // this.menus.forEach((menu) => {
         //   this.menuService.getMenuImage(menu.imageId).subscribe(
         //     (image) => {
@@ -55,9 +59,14 @@ export class MealsOfMenuComponent implements OnInit {
   }
 
   orderMaker(menuId: number): void {
-    const user: User = this.authService.userLogged();
-    if (user) {
-      this.orderService.orderMaker(user.id, 'menu', null, menuId);
+    if (confirm('Etes-vous sûr de vouloir ajouter ce menu au panier ?')) {
+
+      this.loading = true;
+      const user: User = this.authService.userLogged();
+      if (user) {
+        this.orderService.orderMaker(user.id, 'menu', null, menuId);
+      }
+
     }
   }
 

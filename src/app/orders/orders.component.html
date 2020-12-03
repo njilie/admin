@@ -1,4 +1,6 @@
 <div class="section lb">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="m-b-15"></mat-progress-bar>
+  
   <div class="container-fluid">
     <header>
       <div class="row">
@@ -13,15 +15,17 @@
           </ng-template>
         </div>
 
-        <div class="col-lg-4">
-          <button *ngIf="orders && orders[0].status === 0" (click)="makeOrder(orders[0].id)"
-          class="sim-btn hvr-radial-in m-r-10">
-            Commander
-          </button>
-          <button *ngIf="orders && orders[0].status === 0" (click)="removeOrder(orders[0].id)"
-          class="sim-btn hvr-radial-in">
-            Annuler la commande
-          </button>
+        <div *ngIf="orders" class="col-lg-4">
+          <div *ngIf="orders[0]">
+            <button *ngIf="orders[0].status === 0" (click)="makeOrder(orders[0].id)"
+            class="sim-btn hvr-radial-in m-r-10">
+              Commander
+            </button>
+            <button *ngIf="orders[0].status === 0" (click)="removeOrder(orders[0].id)"
+            class="sim-btn hvr-radial-in">
+              Annuler la commande
+            </button>
+          </div>
         </div>
       </div>
 

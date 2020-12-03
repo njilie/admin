@@ -15,6 +15,9 @@ import { DessertsOfMenuComponent } from './orderable/desserts-of-menu/desserts-o
 import { OrderService } from '../shared/services/order.service';
 
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { MatTabsModule } from '@angular/material/tabs';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   providers: [
     OrderService

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { AuthService } from '../shared/auth/auth.service';
 import { MealService } from '../shared/services/meal.service';
 import { MenuService } from '../shared/services/menu.service';
@@ -28,6 +30,7 @@ export class OrdersComponent implements OnInit {
   totalsPrices: PriceOUT[] = [];
   maximumOrderPerDay: number;
   orderTimeLimit: string;
+  loading: boolean;
 
   constructor(
     private auth: AuthService,
@@ -35,9 +38,12 @@ export class OrdersComponent implements OnInit {
     private menuService: MenuService,
     private mealService: MealService,
     private constraintService: ConstraintService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.loading = true;
+
     this.allOrdersUrl = this.route.snapshot.paramMap.get('all');
 
     if (localStorage.getItem('userChangedValues')) {
@@ -68,7 +74,11 @@ export class OrdersComponent implements OnInit {
           // this.imageMeal(order.quantity);
         });
 
-        this.computePrice(this.orders[0].id, 2);
+        if (this.orders[0]) {
+          this.computePrice(this.orders[0].id, 2);
+        }
+
+        this.loading = false;
       },
       (error) => {
         console.log(error);
@@ -84,6 +94,8 @@ export class OrdersComponent implements OnInit {
           // this.imageMenu(order.quantity);
           // this.imageMeal(order.quantity);
           this.computePrice(order.id, 2);
+
+          this.loading = false;
         });
       },
       (error) => {
@@ -133,12 +145,14 @@ export class OrdersComponent implements OnInit {
 
       if (confirm('Etes-vous sûr de vouloir payer cette commande ?')) {
 
+        this.loading = true;
+
         // if (this.user.wallet > this.totalsPrices[0].priceVAT) {
 
-          this.constraintService.constraint(1).subscribe(
+        this.constraintService.constraint(1).subscribe(
             (constraint) => {
-              this.orderTimeLimit = constraint.orderTimeLimit as string;
-              const currentTime = new Date().toLocaleTimeString();
+              // this.orderTimeLimit = constraint.orderTimeLimit as string;
+              // const currentTime = new Date().toLocaleTimeString();
               this.maximumOrderPerDay = constraint.maximumOrderPerDay;
 
               // if (currentTime < this.orderTimeLimit) {
@@ -156,18 +170,26 @@ export class OrdersComponent implements OnInit {
                     };
                     this.constraintService.update(constraint.id, updatedConstraint).subscribe(
                       () => {
-                        alert('Commande effectuée avec succès');
+                        const snackBarRef = this.snackBar.open(`Commande effectuée avec succès`, '', {
+                          duration: 2000,
+                          verticalPosition: 'bottom'
+                        });
+                        snackBarRef.afterDismissed().subscribe(() => {
+                          location.reload();
+                        });
                       });
                   },
                   (error) => {
                     console.log(error);
                     if (error.status === 412 && error.error.exceptionMessage.includes('n\'a pas assez d\'argent')) {
                       alert('Il n\'y a pas assez d\'argent. Veuillez réalimenter la cagnotte');
+                      this.loading = false;
                     }
                   });
 
               } else {
                 alert('Trop de commandes aujourd\'hui, il faut attendre demain');
+                this.loading = false;
               }
 
               // } else {
@@ -189,9 +211,17 @@ export class OrdersComponent implements OnInit {
 
   removeOrder(ongoingOrderId: number): void {
     if (confirm('Etes-vous sûr de vouloir annuler cette commande ?')) {
+      this.loading = true;
+
       this.orderService.delete(ongoingOrderId).subscribe(
         () => {
-          alert('Commande annulée avec succès');
+          const snackBarRef = this.snackBar.open(`Commande annulée avec succès`, '', {
+            duration: 2000,
+            verticalPosition: 'bottom'
+          });
+          snackBarRef.afterDismissed().subscribe(() => {
+            location.reload();
+          });
         },
         (error) => {
           console.log(error);

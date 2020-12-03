@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { AuthService } from '../shared/auth/auth.service';
 import { UserService } from '../shared/services/user.service';
 
 import { User /*UserOUT, UserIN*/ } from '../shared/interfaces/user';
-import { ImageOUT } from '../shared/interfaces/image';
+import { ImageOUT, ImageIN } from '../shared/interfaces/image';
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +17,16 @@ import { ImageOUT } from '../shared/interfaces/image';
 export class ProfileComponent implements OnInit {
   user: User /*UserOUT*/;
   profilePicture: ImageOUT;
+  newProfilePicture: ImageIN;
   registrationDate: number[];
   form: FormGroup;
+  loading: boolean;
 
-  constructor(private auth: AuthService, private userService: UserService, private fb: FormBuilder) {}
+  constructor(
+    private auth: AuthService,
+    private userService: UserService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('userChangedValues')) {
@@ -41,20 +49,29 @@ export class ProfileComponent implements OnInit {
     this.form = this.fb.group({
       imagePath: [''],
       address: [''],
-      postalCode: ['', Validators.minLength(5)],
+      postalCode: [
+        '',
+        Validators.compose([
+          Validators.pattern('[0-9]+'),
+          Validators.minLength(5),
+          Validators.maxLength(5)
+        ])
+      ],
       email: ['', Validators.required],
       password: [''],
       name: ['', Validators.required],
       firstname: ['', Validators.required],
-      phone: [''],
+      phone: [
+        '',
+        Validators.compose([
+          Validators.pattern('[0-9]+'),
+          Validators.minLength(10),
+          Validators.maxLength(10)
+        ])
+      ],
       town: [''],
       sex: ['', Validators.required],
     });
-
-    // Validators.compose([
-    //   Validators.required,
-    //   Validators.minLength(4)
-    // ])
 
     console.log(this.user);
   }
@@ -73,8 +90,9 @@ export class ProfileComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
+      this.loading = true;
+
       this.user.sex = +this.form.get('sex').value;
-      this.profilePicture.imagePath = this.form.get('imagePath').value;
 
       // if (this.form.get('password').value && this.form.value.password) {
       //   this.user.password = this.form.get('password').value;
@@ -82,19 +100,12 @@ export class ProfileComponent implements OnInit {
       //   delete this.form.value.password;
       // }
 
-      this.userService.updateImage(this.user.id, this.profilePicture).subscribe(
-        (data) => {
-          console.log(data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-
       this.userService.update(this.user.id, this.form.value).subscribe(
         (data) => {
           localStorage.setItem('userChangedValues', JSON.stringify(data));
           this.user = data;
+          this.loading = false;
+          alert('Informations mofifiées succès');
         },
         (error) => {
           console.log(error);
@@ -108,10 +119,28 @@ export class ProfileComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.profilePicture.image64 = reader.result as string;
+      const newProfilePicture: ImageIN = {
+        image64: reader.result as string,
+        imagePath: this.form.get('imagePath').value
+      };
+      this.user.image = newProfilePicture;
+      console.log(newProfilePicture);
+      console.log(this.user);
     };
     reader.onerror = (error) => {
       console.log('Error: ', error);
     };
+  }
+
+  saveProfilePicture(): void {
+    this.userService.updateImage(this.user.id, this.newProfilePicture).subscribe(
+      (data) => {
+        console.log(data);
+        alert('Photo de profil mofifiées succès');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

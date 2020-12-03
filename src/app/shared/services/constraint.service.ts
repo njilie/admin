@@ -48,7 +48,6 @@ export class ConstraintService {
   }
 
   update(id: number, constraint: ConstraintIN): Observable<ConstraintOUT> {
-    console.log(constraint);
     return (
       this.http
         .patch<ConstraintOUT>(`${API_URL}/constraint/update/${id}`, constraint)
