@@ -211,6 +211,9 @@ export class OrderService {
       },
       (error) => {
         console.log(error);
+        if (error.status === 412 && error.exceptionMessage === 'L\'heure authorisée pour passer une commande est dépassée') {
+          alert('Erreur : L\'ajout au panier ne peut se faire qu\'avant 10h30');
+        }
       }
     );
   }

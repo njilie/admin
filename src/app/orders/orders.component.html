@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <header>
       <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-8">
           <button *ngIf="allOrdersUrl; else allMenusBtn" [routerLink]="['../']" class="sim-btn hvr-radial-in">
             Mes commandes en cours
           </button>
@@ -13,10 +13,14 @@
           </ng-template>
         </div>
 
-        <div class="col-lg-2">
+        <div class="col-lg-4">
           <button *ngIf="orders && orders[0].status === 0" (click)="makeOrder(orders[0].id)"
-          class="sim-btn hvr-radial-in">
+          class="sim-btn hvr-radial-in m-r-10">
             Commander
+          </button>
+          <button *ngIf="orders && orders[0].status === 0" (click)="removeOrder(orders[0].id)"
+          class="sim-btn hvr-radial-in">
+            Annuler la commande
           </button>
         </div>
       </div>
@@ -31,7 +35,7 @@
         <div class="col-md-4">
           <div class="message-box">
             <h2>
-              Argent restant : <span class="text-important">{{ user.wallet }} €</span>
+              Argent restant : <span class="text-important">{{ user.wallet | number:'1.1-2' }} €</span>
             </h2>
           </div>
         </div>

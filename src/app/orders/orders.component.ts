@@ -11,6 +11,7 @@ import { OrderOUT, PriceOUT } from '../shared/interfaces/order';
 import { QuantityOUT } from '../shared/interfaces/quantity';
 import { ImageOUT } from '../shared/interfaces/image';
 import { ConstraintService } from '../shared/services/constraint.service';
+import { ConstraintIN } from '../shared/interfaces/constraint';
 
 @Component({
   selector: 'app-orders',
@@ -26,6 +27,7 @@ export class OrdersComponent implements OnInit {
   mealsImages: ImageOUT[] = [];
   totalsPrices: PriceOUT[] = [];
   maximumOrderPerDay: number;
+  orderTimeLimit: string;
 
   constructor(
     private auth: AuthService,
@@ -129,49 +131,73 @@ export class OrdersComponent implements OnInit {
   makeOrder(ongoingOrderId: number): void {
     if (this.orders && this.totalsPrices) {
 
-      if (confirm('Etes-vous sûr de vouloir payer cette commande')) {
+      if (confirm('Etes-vous sûr de vouloir payer cette commande ?')) {
 
-        if (this.user.wallet < this.totalsPrices[0].priceVAT) {
+        // if (this.user.wallet > this.totalsPrices[0].priceVAT) {
 
           this.constraintService.constraint(1).subscribe(
             (constraint) => {
+              this.orderTimeLimit = constraint.orderTimeLimit as string;
+              const currentTime = new Date().toLocaleTimeString();
               this.maximumOrderPerDay = constraint.maximumOrderPerDay;
+
+              // if (currentTime < this.orderTimeLimit) {
 
               if (this.maximumOrderPerDay > 0) {
 
                 this.orderService.makeOrder(ongoingOrderId, 1).subscribe(
-                  () => {
+                  (data) => {
+                    localStorage.setItem('userChangedValues', JSON.stringify(data.user));
 
+                    const updatedConstraint: ConstraintIN = {
+                      orderTimeLimit: constraint.orderTimeLimit as string,
+                      maximumOrderPerDay: constraint.maximumOrderPerDay - 1,
+                      rateVAT: constraint.rateVAT
+                    };
+                    this.constraintService.update(constraint.id, updatedConstraint).subscribe(
+                      () => {
+                        alert('Commande effectuée avec succès');
+                      });
                   },
                   (error) => {
                     console.log(error);
+                    if (error.status === 412 && error.error.exceptionMessage.includes('n\'a pas assez d\'argent')) {
+                      alert('Il n\'y a pas assez d\'argent. Veuillez réalimenter la cagnotte');
+                    }
                   });
 
               } else {
                 alert('Trop de commandes aujourd\'hui, il faut attendre demain');
               }
+
+              // } else {
+              //   alert('Une commande ne peut être effectuée qu\'avant 10h30');
+              // }
             },
             (error) => {
               console.log(error);
             });
 
-        } else {
-          alert('Vous n\'avez pas assez d\'argent sur votre compte, veuillez donner assez d\'argent à la cantinière');
-        }
+        // } else {
+        //   alert('Vous n\'avez pas assez d\'argent sur votre compte, veuillez donner assez d\'argent à la cantinière');
+        // }
 
       }
 
     }
   }
 
-  getConstraint(): void {
-    this.constraintService.constraint(1).subscribe(
-      (constraint) => {
-        this.maximumOrderPerDay = constraint.maximumOrderPerDay;
-      },
-      (error) => {
-        console.log(error);
-      });
+  removeOrder(ongoingOrderId: number): void {
+    if (confirm('Etes-vous sûr de vouloir annuler cette commande ?')) {
+      this.orderService.delete(ongoingOrderId).subscribe(
+        () => {
+          alert('Commande annulée avec succès');
+        },
+        (error) => {
+          console.log(error);
+        }
+        );
+    }
   }
 
 }

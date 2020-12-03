@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ConstraintOUT } from '../../shared/interfaces/constraint';
+import { ConstraintService } from '../../shared/services/constraint.service';
 
 @Component({
   selector: 'app-info',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InfoComponent implements OnInit {
 
-  constructor() { }
+  maxOrderPerDay: number;
+  constructor(private constraintService: ConstraintService) { }
 
   ngOnInit(): void {
+    this.showMaxOrderPerDay();
+  }
+
+  showMaxOrderPerDay(): void {
+    this.constraintService.constraint(1).subscribe(
+      (constraint) => {
+        this.maxOrderPerDay = constraint.maximumOrderPerDay;
+      });
   }
 
 }

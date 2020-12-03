@@ -1,6 +1,6 @@
 export interface ConstraintOUT {
     id: number;
-    orderTimeLimit: Date; // string
+    orderTimeLimit: Date | string; // string
     maximumOrderPerDay: number;
     rateVAT: number;
 }
