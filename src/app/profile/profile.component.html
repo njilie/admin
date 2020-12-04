@@ -13,6 +13,14 @@
                     id="imagePath" type="file" accept="image/png, image/jpeg"
                     formControlName="imagePath">
                   </div>
+                  <div>
+                    <button *ngIf="showBtnSavePic"
+                    type="button"
+                    class="sim-btn hvr-radial-in"
+                    (click)="saveProfilePicture()">
+                      Changer
+                    </button>
+                  </div>
               </div>
               <div class="row">
                 <div class="col-md-5">

@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   registrationDate: number[];
   form: FormGroup;
   loading: boolean;
+  showBtnSavePic = false;
 
   constructor(
     private auth: AuthService,
@@ -90,27 +91,29 @@ export class ProfileComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.loading = true;
+      if (confirm('Etes-vous sûr de vouloir modifier vos informations ?')) {
+        this.loading = true;
 
-      this.user.sex = +this.form.get('sex').value;
+        this.user.sex = +this.form.get('sex').value;
 
-      // if (this.form.get('password').value && this.form.value.password) {
-      //   this.user.password = this.form.get('password').value;
-      // } else {
-      //   delete this.form.value.password;
-      // }
+        // if (this.form.get('password').value && this.form.value.password) {
+        //   this.user.password = this.form.get('password').value;
+        // } else {
+        //   delete this.form.value.password;
+        // }
 
-      this.userService.update(this.user.id, this.form.value).subscribe(
-        (data) => {
-          localStorage.setItem('userChangedValues', JSON.stringify(data));
-          this.user = data;
-          this.loading = false;
-          alert('Informations mofifiées succès');
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        this.userService.update(this.user.id, this.form.value).subscribe(
+          (data) => {
+            localStorage.setItem('userChangedValues', JSON.stringify(data));
+            this.user = data;
+            this.loading = false;
+            alert('Informations mofifiées succès');
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
     }
   }
 
@@ -119,13 +122,14 @@ export class ProfileComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      const newProfilePicture: ImageIN = {
+      this.newProfilePicture = {
         image64: reader.result as string,
         imagePath: this.form.get('imagePath').value
       };
-      this.user.image = newProfilePicture;
-      console.log(newProfilePicture);
+      this.user.image = this.newProfilePicture;
+      console.log(this.newProfilePicture);
       console.log(this.user);
+      this.showBtnSavePic = true;
     };
     reader.onerror = (error) => {
       console.log('Error: ', error);
@@ -133,14 +137,18 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProfilePicture(): void {
-    this.userService.updateImage(this.user.id, this.newProfilePicture).subscribe(
-      (data) => {
-        console.log(data);
-        alert('Photo de profil mofifiées succès');
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    if (confirm('Etes-vous sûr de vouloir changer de photo de profil ?')) {
+      this.userService.updateImage(this.user.id, this.newProfilePicture).subscribe(
+        (data) => {
+          console.log(data);
+          localStorage.setItem('userChangedValues', JSON.stringify(data));
+          alert('Photo de profil mofifiées succès');
+          this.showBtnSavePic = false;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 }
