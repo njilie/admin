@@ -1,0 +1,17 @@
+<div *ngIf="meal">   
+    <p>manage-admin works!</p>
+    <p>  {{meal.label}}</p>
+</div> 
+
+<form>
+    <input name="label" [(ngModel)]="meal.label" >
+    <input name="priceDF" [(ngModel)]="meal.priceDF">
+    <input name="imageId" [(ngModel)]="meal.imageId">
+    <button (click)="onClick()">Submit</button> 
+</form>
+
+
+    
+
+
+

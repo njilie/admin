@@ -19,22 +19,22 @@ export interface User {
   image?: ImageIN;
 }
 
-// export interface UserOUT {
-//   id: number;
-//   address: string;
-//   wallet: number;
-//   postalCode: string;
-//   registrationDate: Date | number[];
-//   email: string;
-//   isLunchLady: boolean;
-//   name: string;
-//   firstname: string;
-//   phone: string;
-//   town: string;
-//   sex: number;
-//   status: number;
-//   imageId: number;
-// }
+ export interface UserOUT {
+   id: number;
+   address: string;
+   wallet: number;
+   postalCode: string;
+   registrationDate: Date | number[];
+   email: string;
+   isLunchLady: boolean;
+   name: string;
+   firstname: string;
+   phone: string;
+   town: string;
+   sex: number;
+   status: number;
+   imageId: number;
+ }
 
 // export interface UserIN {
 //   address?: string;

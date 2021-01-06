@@ -9,7 +9,8 @@ import { map, catchError, retry } from 'rxjs/operators';
 
 import { API_URL } from '../constants/api-url';
 
-import { User /*UserOUT, UserIN*/ } from '../interfaces/user';
+import { User, /*UserOUT, UserIN*/ 
+UserOUT} from '../interfaces/user';
 import { ImageOUT, ImageIN } from '../interfaces/image';
 
 import { handleError } from '../constants/handle-http-errors';
@@ -18,6 +19,7 @@ import { handleError } from '../constants/handle-http-errors';
   providedIn: 'root'
 })
 export class UserService {
+  baseUrl: any;
 
   constructor(private http: HttpClient) { }
 
@@ -78,6 +80,30 @@ export class UserService {
         )
     );
   }
+
+  users(): Observable<UserOUT[]> {
+    return (
+      this.http
+        .get<UserOUT[]>(`${API_URL}/user/findall`)
+        .pipe(
+          map((results) => {
+            retry(3),
+            catchError(this.handleError);
+            return results;
+          })
+        )
+    );
+  }
+
+  get(id: number): Observable<any> {
+    const url: string = `${this.baseUrl}/user/find/${id}`;
+    return this.http.get<any>(url);
+  }
+  
+  /* add(id:number, ingredient: any){
+      const url: string = `${this.baseUrl}/ingredient/findall`;
+      return this.http.get<Array<UserOUT>>(url)
+  } */
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {

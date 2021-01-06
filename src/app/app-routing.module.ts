@@ -7,8 +7,43 @@ import { LoginComponent } from './authentication/login/login.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminComponent } from './admin/admin.component';
+import { ManageAdminComponent } from './manage-admin/manage-admin.component';
+import { IngredientComponent } from './ingredient/ingredient.component';
+import { UserComponent } from './user/user.component';
+import { UserAdminComponent } from './user-admin/user-admin.component';
+import { NewmealComponent } from './newmeal/newmeal.component';
+import { MenusComponent } from './menus/menus.component';
 
 const routes: Routes = [
+  {
+    path:'admin/meals', 
+    component: AdminComponent
+  },
+  {
+    path:'admin/menus', 
+    component: MenusComponent
+  },
+  {
+    path:'admin/meal/:id',
+    component: ManageAdminComponent 
+  },
+  {
+    path:'admin/ingredients', 
+    component: IngredientComponent
+  },
+  {
+    path:'newmeal',
+    component: NewmealComponent 
+  },
+  {
+    path:'admin/users', 
+    component: UserComponent
+  },
+  {
+    path:'user/:id',
+    component: UserAdminComponent 
+  },
   {
     path: 'login', // /login
     component: LoginComponent

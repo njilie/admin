@@ -1,0 +1,24 @@
+<p class="styleAdmin">Nos Ingredients</p>
+    <section class="blocAdmin">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th style="text-align: center;">Ingredients</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- <tr *ngFor="let meal of meals"> -->
+            <td>
+                <div *ngFor="let ingredient of ingredients">
+                    <p>{{ ingredient.label }}</p>
+                </div>           
+            </td>
+            <td>
+            <!-- <button type="submit">Modifier</button> -->
+            <!-- <button class="btn btn-danger" (click)="onDelete(person.id)">Delete</button> 
+            <button class="btn btn-success" (click)="editPerson(person)">Update</button>  -->
+            </td> 
+            </tbody> 
+        </table>
+
+    </section>

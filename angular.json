@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "CantiniereFront"
+  "defaultProject": "CantiniereFront",
+  "cli": {
+    "analytics": "3c401f98-b08f-49c2-ae7d-60747a0332ad"
+  }
 }

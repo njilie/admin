@@ -1,0 +1,55 @@
+<!-- <p class="styleAdmin">Utilisateurs</p>
+    <section class="blocAdmin">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th style="text-align: center;">Utilisateurs</th>
+                </tr>
+            </thead>
+            <tbody>
+            //<tr *ngFor="let meal of meals"> -->
+            <!-- <td>
+                <div *ngFor="let user of users">
+                    <p>Name: {{ user.name }} FirstName: {{ user.firstname }}</p>
+                </div>           
+            </td>
+            <td> -->
+            <!-- <button type="submit">Modifier</button> -->
+            <!-- <button class="btn btn-danger" (click)="onDelete(person.id)">Delete</button> 
+            <button class="btn btn-success" (click)="editPerson(person)">Update</button>  -->
+            <!-- </td> 
+            </tbody> 
+        </table>
+
+    </section>  -->
+
+
+
+    <div *ngIf="users">   
+        <p class="styleAdmin">Nos Utilisateurs </p>
+        <section>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="barreMenu">
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Caisse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td><a [routerLink]="['/user', user.id]">{{user.name}}</a></td>
+                        <td>{{user.firstname}}</td>
+                        <td>{{user.wallet}}
+                        
+                <td>
+                <!-- <button type="submit">Modifier</button> -->
+                <!-- <button class="btn btn-danger" (click)="onDelete(person.id)">Delete</button> 
+                <button class="btn btn-success" (click)="editPerson(person)">Update</button>  -->
+                </td> 
+                </tr>
+                </tbody> 
+            </table>
+    
+        </section>
+    </div>

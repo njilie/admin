@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
@@ -9,23 +8,20 @@ import { map, catchError, retry } from 'rxjs/operators';
 
 import { API_URL } from '../constants/api-url';
 
-import { MenuOUT } from '../interfaces/menu';
+import { handleError } from '../constants/handle-http-errors';
 import { ImageOUT } from '../interfaces/image';
 
-import { handleError } from '../constants/handle-http-errors';
-import { AuthService } from '../auth/auth.service';
+import { IngredientOUT } from '../interfaces/ingredient';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class MenuService {
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+export class IngredientService {
 
-  getMenusForThisWeek(): Observable<MenuOUT[]> {
+  constructor(private http: HttpClient) {}
+
+  getIngredient(ingredientId: number): Observable<IngredientOUT> {
     return (
       this.http
-        .get<MenuOUT[]>(`${API_URL}/menu/findallavailablefortoday`)
+        .get<IngredientOUT>(`${API_URL}/ingredient/find/${ingredientId}`)
         .pipe(
           map((results) => {
             retry(3),
@@ -36,10 +32,10 @@ export class MenuService {
     );
   }
 
-  getMenu(menuId: number): Observable<MenuOUT> {
+  ingredients(): Observable<IngredientOUT[]> {
     return (
       this.http
-        .get<MenuOUT>(`${API_URL}/menu/find/${menuId}`)
+        .get<IngredientOUT[]>(`${API_URL}/ingredient/findall`)
         .pipe(
           map((results) => {
             retry(3),
@@ -48,25 +44,6 @@ export class MenuService {
           })
         )
     );
-  }
-
-  getMenuImage(menuId: number): Observable<ImageOUT> {
-    return (
-      this.http
-        .get<ImageOUT>(`${API_URL}/menu/findimg/${menuId}`)
-        .pipe(
-          map((results) => {
-            retry(3),
-            catchError(this.handleError);
-            return results;
-          })
-        )
-    );
-  }
-
-  listMenu(): Observable<Array<MenuOUT>> {
-    const url: string = `${API_URL}/menu/findall`;
-    return this.http.get<Array<MenuOUT>>(url)
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

@@ -38,6 +38,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminComponent } from './admin/admin.component';
+import { ManageAdminComponent } from './manage-admin/manage-admin.component';
+import { IngredientComponent } from './ingredient/ingredient.component';
+import { UserComponent } from './user/user.component';
+import { UserAdminComponent } from './user-admin/user-admin.component';
+import { NewmealComponent } from './newmeal/newmeal.component';
+import { MenusComponent } from './menus/menus.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +57,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ProfileComponent,
     LoaderComponent,
     NavBarComponent,
-    FooterComponent
+    FooterComponent,
+    AdminComponent,
+    ManageAdminComponent,
+    IngredientComponent,
+    UserComponent,
+    UserAdminComponent,
+    NewmealComponent,
+    MenusComponent
   ],
   imports: [
     BrowserModule,

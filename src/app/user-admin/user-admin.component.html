@@ -1,0 +1,16 @@
+<div *ngIf="user">
+    <p>  {{user.name}}</p>
+</div> 
+
+<form>
+    <input name="name" [(ngModel)]="user.name" >
+    <input name="firstname" [(ngModel)]="user.firstname">
+    <input name="wallet" [(ngModel)]="user.wallet">
+    <button (click)="onClick()">Submit</button> 
+</form>
+
+
+    
+
+
+

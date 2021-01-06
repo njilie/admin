@@ -1,0 +1,45 @@
+<a routerLink="/admin/ingredients"><button class="btn"><span style="color: rgb(31, 90, 57);"> La liste de tous les Ingredients 👉</span></button></a>
+<a routerLink="/admin/users"><button class="btn"><span style="color: rgb(31, 90, 57);"> La liste des Utilisateurs 👉</span></button></a>
+<div *ngIf="meals">   
+    <p class="styleAdmin">Nos plats 👩‍🍳</p>
+    <section>
+        <table class="table table-striped">
+            <thead>
+                <tr class="barreMenu">
+                <th>Meals 🍵 et <span style="color: rgb(235, 13, 13);"> Ingrédients 🥒</span></th>
+                <th>Prix</th>
+                <th>Id</th>
+                <th>Images</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let meal of meals">
+            <td><a [routerLink]="['/admin/meal', meal.id]">{{meal.label}}</a>
+                <ul>
+                    <li>
+                        <div *ngFor="let ingredient of meal.ingredients">
+                            <p style="color: red">{{ ingredient.label }}</p>
+                        </div> 
+                    </li>
+                </ul>
+            </td>
+            <td>{{meal.priceDF}}</td>
+            <td>{{meal.id}}</td>
+            <td>{{meal.imageId}}
+                <div class="ser-icon">
+                    <img
+                      src="../../../../assets/uploads/menu-img-01.jpg"
+                      class="img-fluid"
+                      alt=""
+                    />
+                </div>
+                
+            </td>
+                    
+            <td><a class="btn btn-danger" (click)="onDelete(meal.id)">X</a></td> 
+            </tr>
+            </tbody> 
+        </table>
+        <div style="background-color: blue; font-size: 20px; text-align: center;"><button><a routerLink="/newmeal"><strong> New Meal </strong></a></button></div>
+
+    </section>
