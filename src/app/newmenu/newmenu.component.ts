@@ -1,25 +1,24 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from '../shared/services/admin.service';
 
 @Component({
-  selector: 'app-newmeal',
-  templateUrl: './newmeal.component.html',
-  styleUrls: ['./newmeal.component.css']
+  selector: 'app-newmenu',
+  templateUrl: './newmenu.component.html',
+  styleUrls: ['./newmenu.component.css']
 })
-export class NewmealComponent implements OnInit {
+export class NewmenuComponent implements OnInit {
 
-  newmeal: FormGroup;
+  menuForm: FormGroup;
   submitted = false;
   clickSubmit = false;
-
+  
   constructor(private formBuilder: FormBuilder, 
     private adminService: AdminService,
     private router: Router
     ) {
-    this.newmeal = this.formBuilder.group({
+    this.menuForm = this.formBuilder.group({
       label: ['', Validators.required],
       priceDF: ['', Validators.required],
       category: ['', Validators.required],
@@ -29,16 +28,20 @@ export class NewmealComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  valider(){
+    this.clickSubmit = true;
+  }
+
   onSubmit(){
-    if (this.newmeal.valid) {
-      this.adminService.saveMeals(this.newmeal.value).subscribe(
+    if (this.menuForm.valid) {
+      this.adminService.saveMenus(this.menuForm.value).subscribe(
         (data) => {
-          this.router.navigate([`/admin/meals`]);
+          this.router.navigate([`/admin/menus`]);
         },
         (error) => {
           console.log(error);
           if (error.error.status === 400) {
-            console.log("Votre plat n'est pas valide");
+            console.log("Votre menu n'est pas valide");
           }
           if (error.error.status === 401) {
           console.log("Vous n'êtes pas connecté ou n'avez pas le droit");
@@ -47,7 +50,5 @@ export class NewmealComponent implements OnInit {
       );
     }
   }
-  valider(){
-    this.clickSubmit = true;
-  }
+
 }

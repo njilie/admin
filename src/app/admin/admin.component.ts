@@ -30,7 +30,6 @@ export class AdminComponent implements OnInit {
   list(): void{
     this.adminService.list()
     .subscribe((data: Array<MealOUT>) => {
-      console.log(data)
       this.meals = data; 
     })
   }
