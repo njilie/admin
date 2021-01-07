@@ -104,7 +104,7 @@ export class OrdersComponent implements OnInit {
     );
   }
 
-  imageMenu(quantities: QuantityOUT[]): void {
+  /*imageMenu(quantities: QuantityOUT[]): void {
     quantities.forEach((quantity) => {
       this.menuService.getMenuImage(quantity.menu.imageId).subscribe(
         (image) => {
@@ -115,9 +115,9 @@ export class OrdersComponent implements OnInit {
         }
       );
     });
-  }
+  }*/
 
-  imageMeal(quantities: QuantityOUT[]): void {
+  /*imageMeal(quantities: QuantityOUT[]): void {
     quantities.forEach((quantity) => {
       this.mealService.getMealImage(quantity.meal.imageId).subscribe(
         (image) => {
@@ -128,7 +128,7 @@ export class OrdersComponent implements OnInit {
         }
       );
     });
-  }
+  }*/
 
   computePrice(ongoingOrderId: number, constraintId: number): void {
     this.orderService.computePrice(ongoingOrderId, constraintId).subscribe(

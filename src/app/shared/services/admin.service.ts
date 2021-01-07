@@ -60,9 +60,9 @@ delete(id: number): Promise<any> {
   return fetch(`${this.baseUrl}/meal​/delete​/{mealId}`, {
     method: 'DELETE'
   });
-  }
+}
 
-  saveMeals(meal: MealIN): any{
+saveMeals(meal: MealIN): any{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -80,7 +80,7 @@ delete(id: number): Promise<any> {
         })
        )
     );
-  }
+}
 
   saveMenus(menu: MenuIN): any{
     const headers = new HttpHeaders({

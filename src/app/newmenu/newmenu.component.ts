@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from '../shared/services/admin.service';
 
@@ -13,6 +13,7 @@ export class NewmenuComponent implements OnInit {
   menuForm: FormGroup;
   submitted = false;
   clickSubmit = false;
+  message : string;
   
   constructor(private formBuilder: FormBuilder, 
     private adminService: AdminService,
@@ -21,12 +22,33 @@ export class NewmenuComponent implements OnInit {
     this.menuForm = this.formBuilder.group({
       label: ['', Validators.required],
       priceDF: ['', Validators.required],
-      category: ['', Validators.required],
+      description: ['', Validators.required],
+      mealsId: this.formBuilder.array([]),
+      availableForWeeks: this.formBuilder.array([])  
     })
    }
 
   ngOnInit(): void {
   }
+
+    // créer une méthode qui retourne  ingredientsId et availableForWeeks
+    getMealsId(): FormArray {
+      return this.menuForm.get('mealsId') as FormArray;
+    }
+    getAvailableForWeeks(): FormArray {
+      return this.menuForm.get('availableForWeeks') as FormArray;
+    }
+  
+    //créer la méthode qui permet d'ajouter un  FormControl  à ingredientsId et à availableForWeeks
+    onAddMealsId() {
+      const newmealsId = this.formBuilder.control(null, Validators.required);
+      this.getMealsId().push(newmealsId);
+    }
+    onAddAvailableForWeeks() {
+      const newavailableForWeeks = this.formBuilder.control(null, Validators.required);
+      this.getAvailableForWeeks().push(newavailableForWeeks);
+    }
+
 
   valider(){
     this.clickSubmit = true;
@@ -39,12 +61,11 @@ export class NewmenuComponent implements OnInit {
           this.router.navigate([`/admin/menus`]);
         },
         (error) => {
-          console.log(error);
-          if (error.error.status === 400) {
-            console.log("Votre menu n'est pas valide");
+          if (error.status === 400) {
+            this.message = "Votre menu n'est pas valide";
           }
-          if (error.error.status === 401) {
-          console.log("Vous n'êtes pas connecté ou n'avez pas le droit");
+          if (error.status === 401) {
+            this.message = "Vous n'êtes pas connecté ou n'avez pas le droit";
           }
         }
       );

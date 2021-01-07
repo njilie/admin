@@ -49,7 +49,7 @@ export class MealService {
     );
   }
 
-  getMealImage(mealId: number): Observable<ImageOUT> {
+  /*getMealImage(mealId: number): Observable<ImageOUT> {
     return (
       this.http
         .get<ImageOUT>(`${API_URL}/meal/findimg/${mealId}`)
@@ -61,7 +61,7 @@ export class MealService {
           })
         )
     );
-  }
+  }*/
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {

@@ -50,7 +50,7 @@ export class MenuService {
     );
   }
 
-  getMenuImage(menuId: number): Observable<ImageOUT> {
+  /*getMenuImage(menuId: number): Observable<ImageOUT> {
     return (
       this.http
         .get<ImageOUT>(`${API_URL}/menu/findimg/${menuId}`)
@@ -62,7 +62,7 @@ export class MenuService {
           })
         )
     );
-  }
+  }*/
 
   listMenu(): Observable<Array<MenuOUT>> {
     const url: string = `${API_URL}/menu/findall`;
