@@ -14,29 +14,32 @@
             </thead>
             <tbody>
             <tr *ngFor="let meal of meals">
-            <td><a [routerLink]="['/admin/meal', meal.id]">{{meal.label}}</a>
-                <ul>
-                    <li>
-                        <div *ngFor="let ingredient of meal.ingredients">
-                            <p style="color: red">{{ ingredient.label }}</p>
-                        </div> 
-                    </li>
-                </ul>
-            </td>
-            <td>{{meal.priceDF}}</td>
-            <td>{{meal.id}}</td>
-            <td>{{meal.imageId}}
-                <div class="ser-icon">
-                    <img
-                      src="../../../../assets/uploads/menu-img-01.jpg"
-                      class="img-fluid"
-                      alt=""
-                    />
-                </div>
-                
-            </td>
+                <td><a [routerLink]="['/admin/meal', meal.id]" style="font-size:1.3em;">{{meal.label}}</a>
+                    <ul>
+                        <li>
+                            <small>{{meal.description}}</small>
+                        </li>
+                        <li>
+                            <div *ngFor="let ingredient of meal.ingredients">
+                                <p style="color: red">{{ ingredient.label }}</p>
+                            </div> 
+                        </li>
+                    </ul>
+                </td>
+                <td>{{meal.priceDF}}</td>
+                <td>{{meal.id}}</td>
+                <td>{{meal.imageId}}
+                    <div class="ser-icon">
+                        <img
+                        src="../../../../assets/uploads/menu-img-01.jpg"
+                        class="img-fluid"
+                        alt=""
+                        />
+                    </div>
                     
-            <td><a class="btn btn-danger" (click)="onDelete(meal.id)">X</a></td> 
+                </td>
+                        
+                <td><a class="btn btn-danger" (click)="onDelete(meal.id)">X</a></td> 
             </tr>
             </tbody> 
         </table>

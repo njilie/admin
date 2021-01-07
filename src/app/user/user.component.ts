@@ -42,7 +42,7 @@ export class UserComponent implements OnInit {
   }
 
   get(id: number): void {
-    this.adminService.get(id)
+    this.adminService.getMeal(id)
     .subscribe((data: any) => {
       this.user = data;
     })
@@ -56,7 +56,7 @@ export class UserComponent implements OnInit {
   }
 
   onClick(): void {
-    this.adminService.update(this.user.id, this.user)
+    this.adminService.updateMeal(this.user.id, this.user)
     .subscribe((data)=> {console.log(data)
       this.router.navigate(['/admin/users']);
     });

@@ -41,14 +41,22 @@ listImg(): Observable<Array<ImageOUT>> {
   return this.http.get<Array<ImageOUT>>(url)
 }
 
-get(id: number): Observable<any> {
+getMeal(id: number): Observable<any> {
   const url: string = `${this.baseUrl}/meal/find/${id}`;
   return this.http.get<any>(url);
 }
+getMenu(id: number): Observable<any> {
+  const url: string = `${this.baseUrl}/menu/find/${id}`;
+  return this.http.get<any>(url);
+}
 
-update(id: number, meal: any): Observable<any> {
+updateMeal(id: number, meal: any): Observable<any> {
   const url: string = `${this.baseUrl}/meal/update/${id}`;
   return this.http.patch<any>(url, meal);
+}
+updateMenu(id: number, menu: any): Observable<any> {
+  const url: string = `${this.baseUrl}/menu/update/${id}`;
+  return this.http.patch<any>(url, menu);
 }
 
 add(id:number, ingredient: any){
@@ -82,7 +90,7 @@ saveMeals(meal: MealIN): any{
     );
 }
 
-  saveMenus(menu: MenuIN): any{
+saveMenus(menu: MenuIN): any{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

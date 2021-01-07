@@ -35,7 +35,7 @@ export class IngredientComponent implements OnInit {
   }
 
   get(id: number): void {
-    this.adminService.get(id)
+    this.adminService.getMeal(id)
     .subscribe((data: any) => {
       this.ingredient = data;
     })
@@ -49,7 +49,7 @@ export class IngredientComponent implements OnInit {
   }
 
   onClick(): void {
-    this.adminService.update(this.ingredient.id, this.ingredient)
+    this.adminService.updateMeal(this.ingredient.id, this.ingredient)
     .subscribe((data)=> {console.log(data)
       this.router.navigate(['/admin/ingredients']);
     });

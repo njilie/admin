@@ -28,7 +28,6 @@ export class MenusComponent implements OnInit {
   listMenu(): void{
     this.menuService.listMenu()
     .subscribe((data: Array<MenuOUT>) => {
-      console.log(data)
       this.menus = data; 
     })
   }

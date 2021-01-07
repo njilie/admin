@@ -46,6 +46,7 @@ import { UserAdminComponent } from './user-admin/user-admin.component';
 import { NewmealComponent } from './newmeal/newmeal.component';
 import { MenusComponent } from './menus/menus.component';
 import { NewmenuComponent } from './newmenu/newmenu.component';
+import { ManagerMenuComponent } from './manager-menu/manager-menu.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { NewmenuComponent } from './newmenu/newmenu.component';
     UserAdminComponent,
     NewmealComponent,
     MenusComponent,
-    NewmenuComponent
+    NewmenuComponent,
+    ManagerMenuComponent
   ],
   imports: [
     BrowserModule,

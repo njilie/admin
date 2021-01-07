@@ -14,29 +14,32 @@
             </thead>
             <tbody>
             <tr *ngFor="let menu of menus">
-            <td><a [routerLink]="['/admin/menu', menu.id]">{{menu.label}}</a>
-                <ul>
-                    <li>
-                        <div *ngFor="let meal of menu.meals">
-                            <p style="color: red">{{ meal.label }}</p>
-                        </div> 
-                    </li>
-                </ul>
-            </td>
-            <td>{{menu.priceDF}}</td>
-            <td>{{menu.id}}</td>
-            <td>{{menu.imageId}}
-                <div class="ser-icon">
-                    <img
-                      src="../../../../assets/uploads/menu-img-01.jpg"
-                      class="img-fluid"
-                      alt=""
-                    />
-                </div>
-                
-            </td>
+                <td><a [routerLink]="['/admin/menu', menu.id]" style="font-size:1.3em;">{{menu.label}}</a>
+                    <ul>
+                        <li>
+                            <small>{{menu.description}}</small>
+                        </li>
+                        <li>
+                            <div *ngFor="let meal of menu.meals">
+                                <p style="color: red">{{ meal.label }}</p>
+                            </div> 
+                        </li>
+                    </ul>
+                </td>
+                <td>{{menu.priceDF}}</td>
+                <td>{{menu.id}}</td>
+                <td>{{menu.imageId}}
+                    <div class="ser-icon">
+                        <img
+                        src="../../../../assets/uploads/menu-img-01.jpg"
+                        class="img-fluid"
+                        alt=""
+                        />
+                    </div>
                     
-            <td><a class="btn btn-danger" (click)="onDelete(menu.id)">X</a></td> 
+                </td>
+                        
+                <td><a class="btn btn-danger" (click)="onDelete(menu.id)">X</a></td> 
             </tr>
             </tbody> 
         </table>

@@ -14,8 +14,10 @@ import { User } from '../shared/interfaces/user';
   styleUrls: ['./manage-admin.component.css']
 })
 export class ManageAdminComponent implements OnInit {
+
   meal: any;
   paramId: Params;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -33,7 +35,7 @@ export class ManageAdminComponent implements OnInit {
   }
 
   get(id: number): void {
-    this.adminService.get(id)
+    this.adminService.getMeal(id)
     .subscribe((data: any) => {
       this.meal = data;
     })
@@ -46,7 +48,7 @@ export class ManageAdminComponent implements OnInit {
   }
 
   onClick(): void {
-    this.adminService.update(this.meal.id, this.meal)
+    this.adminService.updateMeal(this.meal.id, this.meal)
     .subscribe((data)=> {console.log(data)
       this.router.navigate(['/admin/meals']);
     });
